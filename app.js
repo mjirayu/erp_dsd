@@ -6,10 +6,15 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 
+
+
+//routes
 var routes = require('./routes/index');
 var users = require('./routes/users');
-var products = require('./routes/products');
+var inventory = require('./routes/inventory');
 var product = require('./routes/product');
+
+
 
 var app = express();
 
@@ -30,7 +35,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
 app.use('/users', users);
-app.use('/products',products);
+app.use('/inventory',inventory);
 app.use('/product',product);
 
 // catch 404 and forward to error handler
