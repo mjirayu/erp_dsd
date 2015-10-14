@@ -1,7 +1,7 @@
 var request = require('supertest');
 var app = require('../app');
 
-describe('GET Server', function() {
+describe('GET Route', function() {
   it('should be access index page', function(done) {
     request(app)
       .get('/')
