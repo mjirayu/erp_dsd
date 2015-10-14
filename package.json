@@ -1,0 +1,33 @@
+{
+  "name": "erp_dsd",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www"
+  },
+  "dependencies": {
+    "body-parser": "~1.13.2",
+    "chai": "^3.3.0",
+    "cookie-parser": "~1.3.5",
+    "debug": "~2.2.0",
+    "express": "~4.13.1",
+    "jade": "~1.11.0",
+    "mocha": "^2.3.3",
+    "morgan": "^1.6.1",
+    "serve-favicon": "~2.3.0",
+    "sinon": "^1.17.1",
+    "supertest": "^1.1.0"
+  },
+  "description": "",
+  "main": "app.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mjirayu/erp_dsd.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mjirayu/erp_dsd/issues"
+  },
+  "homepage": "https://github.com/mjirayu/erp_dsd#readme"
+}
