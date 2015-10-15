@@ -2,7 +2,6 @@ var mongoose = require('mongoose')
 var Schema = mongoose.Schema
 
 var productSchema = new Schema({
-  supplier_id:String,
   product_type: String,
   product_code: String,
   product_name: String,

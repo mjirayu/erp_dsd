@@ -30,15 +30,12 @@ var storage = multer.diskStorage({
 
 var upload = multer({ storage: storage });
 
-
-/* GET users listing. */
 router.get('/', function(req, res, next) {
   res.send('all product');
 });
 
 router.get('/:id', function(req, res, next) {
-  //res.send('product : '+req.params.id);
-  productDB.find( {_id :req.params.id}, function (err,data) {
+  productDB.findById(req.params.id, function (err, data) {
     res.send(data);
   });
 
@@ -46,7 +43,6 @@ router.get('/:id', function(req, res, next) {
 
 router.post('/', upload.single('product_image'), function(req, res, next) {
   data = {};
-  data.supplier_id = req.body.supplier_id;
   data.product_name =  req.body.product_name;
   data.product_type = req.body.product_type;
   data.product_status = req.body.product_status;
@@ -55,12 +51,9 @@ router.post('/', upload.single('product_image'), function(req, res, next) {
   data.product_image = "defalse pic";
   if(req.file == undefined){
     data.product_image =="asdf";
-
   }else{
-
     data.product_image = req.file.filename;
   }
-
 
   for(item in data){
     console.log(item + " is "+data[item]);
@@ -80,7 +73,15 @@ router.post('/:id', function(req, res, next) {
 });
 
 router.delete('/:id', function(req, res, next) {
-  console.log('delete Product :'+req.params.id);
+  productDB.findById(req.params.id, function(err, data){
+    data.remove(function(err) {
+      if(err) {
+        throw err;
+      } else {
+        res.redirect('/product');
+      }
+    });
+  });
 });
 
 module.exports = router;
