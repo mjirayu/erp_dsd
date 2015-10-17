@@ -1,11 +1,11 @@
 var express = require('express');
 var router = express.Router();
 var productDB = require('./../models/product');
-var multer  = require('multer')
+var multer  = require('multer');
 
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, __dirname+'/../public/uploads')
+        cb(null, __dirname+'/../public/uploads');
     },
     filename: function (req, file, cb) {
         var lastfilename = "";
@@ -14,7 +14,7 @@ var storage = multer.diskStorage({
         }else if(file.mimetype=="image/png"){
           lastfilename = ".png";
         }else{
-          cb(new Error('Allow only JPG and PNG'))
+          cb(new Error('Allow only JPG and PNG'));
         }
         cb(null, file.fieldname + '-' + Date.now()+lastfilename);
     },
@@ -22,9 +22,8 @@ var storage = multer.diskStorage({
         var fileimage = file;
         console.log(file);
         req.middlewareStorage = {
-          fileimage : fileimage//,
-          //otherKey : otherValue
-        }
+          fileimage : fileimage,
+        };
       }
 });
 
@@ -49,15 +48,15 @@ router.post('/', upload.single('product_image'), function(req, res, next) {
   data.product_code = req.body.product_code;
   data.product_date = Date();
   data.product_image = "defalse pic";
-  if(req.file == undefined){
-    data.product_image =="asdf";
+  if(req.file === undefined) {
+    data.product_image = "asdf";
   }else{
     data.product_image = req.file.filename;
   }
 
-  for(item in data){
+  for(var item in data) {
     console.log(item + " is "+data[item]);
-    if(data[item] == undefined || data[item] == ""){
+    if(data[item] === undefined || data[item] === "") {
       res.send(item + " is undefined");
       break;
     }

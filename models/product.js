@@ -1,5 +1,5 @@
-var mongoose = require('mongoose')
-var Schema = mongoose.Schema
+var mongoose = require('mongoose');
+var Schema = mongoose.Schema;
 
 var productSchema = new Schema({
   product_type: String,
@@ -7,7 +7,8 @@ var productSchema = new Schema({
   product_name: String,
   product_status: String,
   product_image: String,
-  product_date: Date
+  product_date: Date,
+  suppliers: Array
 });
 
 

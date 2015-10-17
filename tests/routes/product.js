@@ -32,7 +32,7 @@ describe('Route Product', function() {
   });
 
   it('should be delete product', function(done) {
-    var product = {}
+    var product = {};
     productDB.find({product_code: 'P01'}, function(err, data){
       product = data[0];
       request(app)
@@ -44,5 +44,5 @@ describe('Route Product', function() {
         });
     });
   });
-  
+
 });
