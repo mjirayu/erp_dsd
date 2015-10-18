@@ -15,7 +15,6 @@ var supplierSchema = new Schema({
   sale_person_mobile: String,
   sale_person_email: String,
   status: String,
-  products: Array
 });
 
 
