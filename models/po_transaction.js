@@ -1,19 +1,20 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-var productSchema = new Schema({
-  pd_id: {
-    type: String,
-    unique: true
+var poTransactionSchema = new Schema({
+  po_id: {
+    type: Schema.ObjectId,
+    ref: 'PO_HEADER'
   },
-  pd_name: String,
-  pd_status: String,
-  pd_type: String,
-  safety_stock: String,
-  unit: String,
+  pd_id: {
+    type: Schema.ObjectId,
+    ref: 'M_PRODUCT'
+  },
+  quantity: Number,
+  price: Number,
   update_date: Date,
-  update_by: String,
+  update_by: String
 });
 
 
-module.exports = mongoose.model('Product', productSchema);
+module.exports = mongoose.model('PO_TRANSACTION', poTransactionSchema);

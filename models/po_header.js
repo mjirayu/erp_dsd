@@ -8,7 +8,7 @@ var poHeaderSchema = new Schema({
   },
   sp_id: {
     type: Schema.ObjectId,
-    ref: 'm_supplier'
+    ref: 'M_SUPPLIER'
   },
   order_date: Date,
   expected_date: Date,
