@@ -46,7 +46,7 @@ router.post('/supplier',upload.single('logo'),function(req,res){
   data.date = new Date();
 
   data_check = true;
-  if(data.delivery_day == "" || data.delivery_day == "Invalid Date"){
+  if(data.delivery_day == "" || data.delivery_day == "Invalid Date") {
     res.send("Invalid Date");
     data_check = false;
   }
@@ -67,9 +67,7 @@ router.post('/supplier',upload.single('logo'),function(req,res){
     return false;
 
   }
-
   supplierDB.create(data,function(err,data){
-
     if(err){
       res.send(err);
     }else{
@@ -136,18 +134,14 @@ router.put('/supplier/:id',upload.single('logo'),function(req,res){
     });
 
     return false;
-
   }
-
   supplierDB.findByIdAndUpdate(req.params.id,data,function(err,data){
-
     if(err){
       res.send(err);
     }else{
       res.send({status:'successfully',data:data});
     }
   });
-
 });
 
 
