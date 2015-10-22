@@ -62,7 +62,8 @@ router.post('/', upload.single('product_image'), function(req, res, next) {
     }
   }
   productDB.create(data,function(err,data){
-      res.send(data);
+    if(err) res.send(err);
+    res.send(data);
   });
 
 });

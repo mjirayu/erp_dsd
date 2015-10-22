@@ -2,10 +2,7 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var productSchema = new Schema({
-  pd_id: {
-    type: String,
-    unique: true
-  },
+
   pd_name: String,
   pd_status: String,
   pd_type: String,

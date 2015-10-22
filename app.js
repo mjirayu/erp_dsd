@@ -12,6 +12,8 @@ var users = require('./routes/users');
 var inventory = require('./routes/inventory');
 var product = require('./routes/product');
 var poHeader = require('./routes/po_header');
+var supplier = require('./routes/supplier');
+var price = require('./routes/price');
 
 var app = express();
 
@@ -32,9 +34,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
 app.use('/users', users);
+app.use('/po_header', poHeader);
 app.use('/inventory', inventory);
 app.use('/product', product);
-app.use('/po_header', poHeader);
+app.use('/api', supplier);
+app.use('/api', price);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
