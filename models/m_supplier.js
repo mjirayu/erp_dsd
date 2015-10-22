@@ -3,9 +3,13 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var supplierSchema = new Schema({
+  sp_id: {
+    type: String,
+    unique: true
+  },
   code: String,
   name: String,
-  delivery_day: Date,
+  delivery_day: String,
   address: String,
   image: String,
   website: String,
@@ -15,6 +19,7 @@ var supplierSchema = new Schema({
   sale_person_mobile: String,
   sale_person_email: String,
   status: String,
+  date:Date
 });
 
 
