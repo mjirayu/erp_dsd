@@ -2,11 +2,13 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var inventorySchema = new Schema({
-  product: {
+  pd_id: {
     type: Schema.ObjectId,
-    ref: 'Product'
+    ref: 'M_PRODUCT'
   },
-  quantity: Number
+  quantity: Number,
+  update_date: Date,
+  update_by: String
 });
 
 
