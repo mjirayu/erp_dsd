@@ -43,14 +43,14 @@ router.get('/price/:id',function(req,res){
   priceDB.findById(req.params.id,function(err,data){
     if(err) res.send(err);
     res.send(data);
-  })
+  });
 });
 
 router.delete('/price/:id',function(req,res){
   priceDB.findByIdAndRemove(req.params.id,function(err,data){
     if(err) res.send(err);
     res.send("deleted");
-  })
+  });
 });
 
 router.put('/price/:id',function(req,res){

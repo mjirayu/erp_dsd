@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var dataPOHeader = require('./../models/po_header');
+var dataSupplier = require('./../models/m_supplier');
 
 router.get('/', function(req, res, next) {
   dataPOHeader
@@ -29,6 +30,7 @@ router.get('/search', function(req, res, next) {
   var params = req.query;
   var po_id = new RegExp(params.po_id, 'i');
   var po_status = new RegExp(params.po_status, 'i');
+  var sp_name = new RegExp(params.sp_name, 'i');
 
   dataPOHeader
     .find({
@@ -48,8 +50,6 @@ router.get('/:po_id', function(req, res, next) {
       res.json(data);
     });
 });
-
-
 
 
 module.exports = router;

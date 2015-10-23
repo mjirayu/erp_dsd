@@ -15,7 +15,7 @@ var poTransactionSchema = new Schema({
   quantity: Number,
   price: Number,
   update_date: Date,
-  update_by: String
+  update_by: String,
 });
 
 

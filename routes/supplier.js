@@ -31,6 +31,7 @@ var upload = multer({ storage: storage });
 
 router.post('/supplier',upload.single('logo'),function(req,res){
   data = {};
+  data.sp_id = req.body.sp_id;
   data.code =  req.body.code;
   data.name = req.body.name;
   data.delivery_day = new Date(req.body.delivery_day);
@@ -100,6 +101,7 @@ router.delete('/supplier/:id',function(req,res){
 
 router.put('/supplier/:id',upload.single('logo'),function(req,res){
   data = {};
+  data.sp_id = req.body.sp_id;
   data.code =  req.body.code;
   data.name = req.body.name;
   data.delivery_day = new Date(req.body.delivery_day);

@@ -12,6 +12,7 @@ var users = require('./routes/users');
 var inventory = require('./routes/inventory');
 var product = require('./routes/product');
 var poHeader = require('./routes/po_header');
+var poTransaction = require('./routes/po_transaction');
 var supplier = require('./routes/supplier');
 var price = require('./routes/price');
 
@@ -35,6 +36,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', routes);
 app.use('/users', users);
 app.use('/api/po_header', poHeader);
+app.use('/api/po_transaction', poTransaction);
 app.use('/inventory', inventory);
 app.use('/product', product);
 app.use('/api', supplier);
