@@ -23,4 +23,4 @@ var supplierSchema = new Schema({
 });
 
 
-module.exports = mongoose.model('Supplier', supplierSchema);
+module.exports = mongoose.model('M_SUPPLIER', supplierSchema);

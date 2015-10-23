@@ -6,13 +6,12 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 
-
-
 //routes
 var routes = require('./routes/index');
 var users = require('./routes/users');
 var inventory = require('./routes/inventory');
 var product = require('./routes/product');
+var poHeader = require('./routes/po_header');
 var supplier = require('./routes/supplier');
 var price = require('./routes/price');
 
@@ -35,10 +34,12 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
 app.use('/users', users);
-app.use('/inventory',inventory);
-app.use('/product',product);
-app.use('/api',supplier);
-app.use('/api',price);
+app.use('/api/po_header', poHeader);
+app.use('/inventory', inventory);
+app.use('/product', product);
+app.use('/api', supplier);
+app.use('/api', price);
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');

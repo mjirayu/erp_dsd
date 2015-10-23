@@ -1,5 +1,7 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
+var PO_HEADER = require('./po_header');
+var M_PRODUCT = require('./m_product');
 
 var poTransactionSchema = new Schema({
   po_id: {
