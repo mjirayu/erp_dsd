@@ -3,6 +3,7 @@ var router = express.Router();
 var inventoryModel = require('./../models/invemtory');
 var productModel = require('./../models/m_pruduct');
 var zoneModel = require('./../models/m_zone');
+var movementModel = require('./../models/movement_stock');
 
 /* GET users listing. */
 
