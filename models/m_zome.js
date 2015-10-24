@@ -13,4 +13,4 @@ var zoneSchema = new Schema({
 });
 
 
-module.exports = mongoose.model('Zone', zoneSchema);
+module.exports = mongoose.model('M_ZONE', zoneSchema);

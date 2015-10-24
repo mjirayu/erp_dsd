@@ -7,9 +7,13 @@ var inventorySchema = new Schema({
     ref: 'M_PRODUCT'
   },
   quantity: Number,
+  zone_id: {
+    type: Schema.ObjectId,
+    ref: 'M_ZONE'
+  },
   update_date: Date,
   update_by: String
 });
 
 
-module.exports = mongoose.model('Inventory', inventorySchema);
+module.exports = mongoose.model('INVENTORY', inventorySchema);

@@ -15,8 +15,7 @@ var movementSchema = new Schema({
   quantity: Number,
   ref_po_id: String,
   update_date: Date,
-  update_by: String,
-  phone: String
+  update_by: String
 });
 
 
