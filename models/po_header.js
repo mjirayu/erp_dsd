@@ -12,7 +12,7 @@ var poHeaderSchema = new Schema({
     ref: 'M_SUPPLIER'
   },
   order_date: String,
-  expected_date: Date,
+  expected_date: String,
   untaxed_total: Number,
   total: Number,
   po_status: String,

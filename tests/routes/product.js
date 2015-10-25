@@ -1,5 +1,5 @@
 var request = require('supertest');
-var productDB = require('../../models/product');
+var productDB = require('../../models/m_product');
 var app = require('../../app');
 
 describe('Route Product', function() {
