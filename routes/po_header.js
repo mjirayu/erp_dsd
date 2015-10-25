@@ -31,16 +31,21 @@ router.get('/search', function(req, res, next) {
   var po_id = new RegExp(params.po_id, 'i');
   var po_status = new RegExp(params.po_status, 'i');
   var sp_name = new RegExp(params.sp_name, 'i');
+  var order_date = new RegExp(params.order_date, 'i');
 
-  dataPOHeader
-    .find({
-      po_id: { $regex: po_id },
-      po_status: { $regex: po_status },
-    })
-    .populate('sp_id')
-    .exec(function(err, collection) {
-      res.json(collection);
-    });
+  dataSupplier.find({name: sp_name}, function(err, data) {
+    dataPOHeader
+      .find({
+        po_id: { $regex: po_id },
+        po_status: { $regex: po_status },
+        order_date: { $regex: order_date },
+      })
+      .populate('sp_id', null, {name: { $regex: sp_name }})
+      .exec(function(err, collection) {
+        res.json(collection);
+      });
+  });
+
 });
 
 router.get('/:po_id', function(req, res, next) {

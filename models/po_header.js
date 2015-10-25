@@ -11,7 +11,7 @@ var poHeaderSchema = new Schema({
     type: Schema.ObjectId,
     ref: 'M_SUPPLIER'
   },
-  order_date: Date,
+  order_date: String,
   expected_date: Date,
   untaxed_total: Number,
   total: Number,
