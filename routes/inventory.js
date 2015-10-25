@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
-var inventoryModel = require('./../models/invemtory');
-var productModel = require('./../models/m_pruduct');
+var inventoryModel = require('./../models/inventory');
+var productModel = require('./../models/m_product');
 var zoneModel = require('./../models/m_zone');
 var movementModel = require('./../models/movement_stock');
 
