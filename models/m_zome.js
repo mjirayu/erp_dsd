@@ -7,7 +7,6 @@ var zoneSchema = new Schema({
     unique: true
   },
   zone_type: String,
-  zone_code: String,
   zone_name: String,
   zone_desc: String
 });

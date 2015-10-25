@@ -33,11 +33,21 @@ router.post('/inventory',function(req,res){
 });
 
 router.get('/inventory',function(req,res){
+  /*
   inventoryModel.find({},function(err,data){
     if(err) res.send(err);
     res.send(data);
   });
+*/
+  inventoryModel
+    .find({})
+    .populate('pd_id')
+    .populate('zone_id')
+    .exec(function(err, collection) {
+      res.json(collection);
+    });
 });
+
 
 router.get('/inventory/:id',function(req,res){
   inventoryModel.findById(req.params.id,function(err,data){
@@ -87,7 +97,7 @@ router.put('/inventory/:id',function(req,res){
     res.send("Invalid movement type"+movementData.movement_type);
     movementData_check = false;
   }
-  
+
   for(item in movementData) {
     console.log(item + " is "+movementData[item]);
     if(movementData[item] === undefined || movementData[item] === "") {
@@ -102,6 +112,32 @@ router.put('/inventory/:id',function(req,res){
     res.send(data);
   });
 
+});
+
+router.get('/inventory/search',function(req,res){
+  //zone, productType, ProductName, ProductStatus
+  var params = req.query;
+  var zone_id = new RegExp(params.zone_id, 'i');
+  var product_type = new RegExp(params.product_type, 'i');
+  var product_name = new RegExp(params.product_name, 'i');
+  var product_status = new RegExp(params.product_status, 'i');
+  inventoryModel
+    .find({})
+    .populate({
+      path: 'pd_id',
+      match: { product_type: { $regex: product_type },
+              product_name:{ $regex: product_name },
+              product_status:{ $regex: product_status}
+            }
+          })
+    .populate({
+      path: 'zone_id',
+      match: { zone_id: { $regex: zone_id }
+            }
+          })
+    .exec(function(err, collection) {
+      res.json(collection);
+    });
 });
 
 
