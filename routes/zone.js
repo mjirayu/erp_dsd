@@ -80,7 +80,7 @@ router.get('/zone/search', function(req, res, next) {
 
   zoneModel.find({
       zone_type: { $regex: zone_type },
-      zone_name: { $regex: zone_name },
+      zone_name: { $regex: zone_name }
     }.function(err, data) {
       res.send(data);
     });

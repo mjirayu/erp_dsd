@@ -55,7 +55,6 @@ router.put('/inventory/:id',function(req,res){
   inventoryData.update_by =  "admin";
   inventoryData_check = true;
 
-
   for(item in inventoryData) {
     console.log(item + " is "+inventoryData[item]);
     if(inventoryData[item] === undefined || inventoryData[item] === "") {
@@ -74,14 +73,21 @@ router.put('/inventory/:id',function(req,res){
 
   movementData = {};
   movementData.pd_id =  req.body.pd_id ;
-  movementData.movement_type=  req.body.movement_type;
+  movementData.movement_type =  req.body.movement_type;
   movementData.quantity = req.body.quantity;
   movementData.ref_po_id = req.body.ref_po_id;
   movementData.update_date = Date();
   movementData.update_by =  "admin";
   movementData_check = true;
 
-
+  if(movementData.movement_type.toLowerCase() == 'supply' || movementData.movement_type.toLowerCase() == 'receive'){
+    movementData_check = true;
+  }
+  else {
+    res.send("Invalid movement type"+movementData.movement_type);
+    movementData_check = false;
+  }
+  
   for(item in movementData) {
     console.log(item + " is "+movementData[item]);
     if(movementData[item] === undefined || movementData[item] === "") {
