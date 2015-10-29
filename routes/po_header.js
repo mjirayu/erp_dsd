@@ -24,12 +24,12 @@ router.post('/', function(req, res, next) {
     update_date: new Date(),
     update_by: 'User'
   }, function(err) {
-    if(err) {
-        res.send(err)
-    } else {
+      if (err) {
+        res.send(err);
+      } else {
         res.send('success')
-    }
-  );
+      }
+  });
 });
 
 router.get('/search', function(req, res, next) {
