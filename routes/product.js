@@ -30,24 +30,20 @@ var storage = multer.diskStorage({
 var upload = multer({ storage: storage });
 
 router.get('/', function(req, res, next) {
-  res.send('all product');
-});
-
-router.get('/:id', function(req, res, next) {
-  productDB.findById(req.params.id, function (err, data) {
-    res.send(data);
+  productDB.find({}, function(err, collection) {
+    res.json(collection);
   });
-
 });
 
-router.post('/', upload.single('product_image'), function(req, res, next) {
+router.post('/', upload.single('image'), function(req, res, next) {
   data = {};
-  data.product_name =  req.body.product_name;
-  data.product_type = req.body.product_type;
-  data.product_status = req.body.product_status;
-  data.product_code = req.body.product_code;
-  data.product_date = Date();
-  data.product_image = "defalse pic";
+  data.pd_id = req.body.pd_id;
+  data.pd_name =  req.body.pd_name;
+  data.pd_type = req.body.pd_type;
+  data.pd_status = req.body.pd_status;
+  data.update_date = Date();
+  data.update_by = 'User';
+  data.image = "defalse pic";
   if(req.file === undefined) {
     data.product_image = "asdf";
   }else{
@@ -68,9 +64,12 @@ router.post('/', upload.single('product_image'), function(req, res, next) {
 
 });
 
-router.post('/:id', function(req, res, next) {
-  console.log('Post Product :'+req.params.id);
+router.get('/:id', function(req, res, next) {
+  productDB.findById(req.params.id, function (err, data) {
+    res.json(data);
+  });
 });
+
 
 router.delete('/:id', function(req, res, next) {
   productDB.findById(req.params.id, function(err, data){
