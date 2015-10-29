@@ -23,7 +23,13 @@ router.post('/', function(req, res, next) {
     invoice_no: req.body.invoice_no,
     update_date: new Date(),
     update_by: 'User'
-  });
+  }, function(err) {
+    if(err) {
+        res.send(err)
+    } else {
+        res.send('success')
+    }
+  );
 });
 
 router.get('/search', function(req, res, next) {
