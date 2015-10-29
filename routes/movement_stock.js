@@ -32,7 +32,7 @@ router.get('/movement/search/date', function(req, res, next) {
         $gte: date_from,
         $lte: date_to
       }
-    }.function(err, data) {
+    },function(err, data) {
       res.send(data);
     });
 });
@@ -70,7 +70,7 @@ router.get('/movement/search/period', function(req, res, next) {
     res.send('Period is not match :'+period);
   }
 
-  if(check_date){}
+  if(check_date){
     movementModel.find({
         pd_id: pd_id,
         movement_type: { $regex: movement_type },
@@ -78,11 +78,12 @@ router.get('/movement/search/period', function(req, res, next) {
           $gte: date_from,
           $lte: date_to
         }
-      }.function(err, data) {
+      },function(err, data) {
         res.send(data);
       });
+    }
     });
-  }
+
 
 
 module.exports = router;

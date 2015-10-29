@@ -4,6 +4,7 @@ var zoneModel = require('./../models/m_zone');
 
 router.post('/zone',function(req,res){
   data = {};
+  console.log(req);
   data.zone_name =  req.body.zone_name;
   data.zone_type =  req.body.zone_type;
   data.zone_desc = req.body.zone_desc;
@@ -28,7 +29,8 @@ router.post('/zone',function(req,res){
 });
 
 router.get('/zone',function(req,res){
-  priceDB.find({},function(err,data){
+  console.log("call zone");
+  zoneModel.find({},function(err,data){
     if(err) res.send(err);
     res.send(data);
   });
@@ -42,7 +44,7 @@ router.get('/zone/:id',function(req,res){
 });
 
 router.delete('/zone/:id',function(req,res){
-  priceDB.findByIdAndRemove(req.params.id,function(err,data){
+  zoneModel.findByIdAndRemove(req.params.id,function(err,data){
     if(err) res.send(err);
     res.send("deleted");
   })
@@ -50,6 +52,7 @@ router.delete('/zone/:id',function(req,res){
 
 router.put('/zone/:id',function(req,res){
   data = {};
+  data.zone_id = req.body.zone_id;
   data.zone_name =  req.body.zone_name;
   data.zone_type =  req.body.zone_type;
   data.zone_desc = req.body.zone_desc;
@@ -81,9 +84,11 @@ router.get('/zone/search', function(req, res, next) {
   zoneModel.find({
       zone_type: { $regex: zone_type },
       zone_name: { $regex: zone_name }
-    }.function(err, data) {
+    },function(err, data) {
       res.send(data);
     });
 });
+
+
 
 module.exports = router;
