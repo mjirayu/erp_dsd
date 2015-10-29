@@ -8,7 +8,9 @@ var zoneSchema = new Schema({
   },
   zone_type: String,
   zone_name: String,
-  zone_desc: String
+  zone_desc: String,
+  update_date: Date,
+  update_by: String
 });
 
 

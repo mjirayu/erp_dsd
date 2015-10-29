@@ -31,6 +31,8 @@ var poHeader = require('./routes/po_header');
 var poTransaction = require('./routes/po_transaction');
 var supplier = require('./routes/supplier');
 var price = require('./routes/price');
+var zone = require('./routes/zone');
+var movement_stock = require('./routes/movement_stock');
 
 var app = express();
 
@@ -54,10 +56,12 @@ app.use('/', routes);
 app.use('/users', users);
 app.use('/api/po_header', poHeader);
 app.use('/api/po_transaction', poTransaction);
-app.use('/inventory', inventory);
+app.use('/api', inventory);
 app.use('/product', product);
 app.use('/api', supplier);
 app.use('/api', price);
+app.use('/api', zone);
+app.use('/api', movement_stock);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
