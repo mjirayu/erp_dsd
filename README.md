@@ -5,6 +5,18 @@
 
 ##Supplier
 1. POST --->  /api/supplier  Add new supplier
+    * sp_id  ---> String
+    * code  ---> String
+    * name  ---> String
+    * delivery_day  ---> Date  ex 2014/3/4
+    * address  ---> String
+    * website  ---> String
+    * phone  ---> String
+    * fax  ---> String
+    * sale_person_name  ---> String
+    * sale_person_mobile  ---> String
+    * sale_person_email  ---> String
+    * status  ---> String
 2. GET --->  /api/supplier   Get all supplier
 3. DELETE ---> /api/supplier/:id   Delete supplier by id
 4. PUT   ---> /api/supplier/:id  Update data according to id
@@ -16,6 +28,11 @@
 
 ## Price
 1. POST --->  /api/price  Add new price
+    * sp_id  ---> String
+    * pd_id  ---> String
+    * pd_price  ---> Number
+    * minimun_order  ---> Number
+    * effective_date  ---> Date  ex 2014/3/4
 2. GET --->  /api/price   Get all price
 3. DELETE ---> /api/price/:id   Delete price by id
 4. PUT   ---> /api/price/:id  Update data according to id
