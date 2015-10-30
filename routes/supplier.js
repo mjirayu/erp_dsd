@@ -29,7 +29,7 @@ var storage = multer.diskStorage({
 
 var upload = multer({ storage: storage });
 
-router.post('/supplier',upload.single('logo'),function(req,res){
+router.post('/',upload.single('logo'),function(req,res){
   data = {};
   data.sp_id = req.body.sp_id;
   data.code =  req.body.code;
@@ -78,28 +78,44 @@ router.post('/supplier',upload.single('logo'),function(req,res){
 
 });
 
-router.get('/supplier',function(req,res){
+router.get('/',function(req,res){
   supplierDB.find({},function(err,data){
     if(err) res.send(err);
     res.send(data);
   })
 });
 
-router.get('/supplier/:id',function(req,res){
+router.get('/search',function(req,res){
+  var params = req.query;
+  console.log(params);
+  var sp_code = new RegExp(params.code, 'i');
+  var sp_name = new RegExp(params.name, 'i');
+  var sp_status = new RegExp(params.status, 'i');
+  console.log(sp_code);
+  supplierDB.find({
+    code: { $regex: sp_code},
+    name: { $regex: sp_name},
+    status: { $regex: sp_status}
+  }).exec(function(err, collection) {
+    res.send(collection);
+  });;
+});
+
+router.get('/:id',function(req,res){
   supplierDB.findById(req.params.id,function(err,data){
     if(err) res.send(err);
     res.send(data);
   })
 });
 
-router.delete('/supplier/:id',function(req,res){
+router.delete('/:id',function(req,res){
   supplierDB.findByIdAndRemove(req.params.id,function(err,data){
     if(err) res.send(err);
     res.send("deleted");
   })
 });
 
-router.put('/supplier/:id',upload.single('logo'),function(req,res){
+router.put('/:id',upload.single('logo'),function(req,res){
   data = {};
   data.sp_id = req.body.sp_id;
   data.code =  req.body.code;

@@ -8,7 +8,7 @@ var priceSchema = new Schema({
   },
   pd_id:{
     type: Schema.ObjectId,
-    ref: 'm_product'
+    ref: 'M_PRODUCT'
   },
   pd_price: String,
   minimun_order: Number,
