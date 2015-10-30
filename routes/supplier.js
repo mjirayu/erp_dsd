@@ -87,11 +87,9 @@ router.get('/',function(req,res){
 
 router.get('/search',function(req,res){
   var params = req.query;
-  console.log(params);
   var sp_code = new RegExp(params.code, 'i');
   var sp_name = new RegExp(params.name, 'i');
   var sp_status = new RegExp(params.status, 'i');
-  console.log(sp_code);
   supplierDB.find({
     code: { $regex: sp_code},
     name: { $regex: sp_name},

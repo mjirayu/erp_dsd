@@ -47,7 +47,16 @@ router.get('/search', function(req, res, next) {
     })
     .populate('sp_id', null, {name: { $regex: sp_name }})
     .exec(function(err, collection) {
-      res.json(collection);
+      if (err) res.send(err);
+      data = collection.filter(function(item) {
+        if (item.sp_id == null) return false;
+        return true;
+        })
+        .map(function(item) {
+            return item;
+        });
+
+      res.send(data);
     });
 });
 
