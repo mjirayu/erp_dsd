@@ -69,5 +69,17 @@ router.get('/:po_id', function(req, res, next) {
     });
 });
 
+router.delete('/:po_id', function(req, res, next) {
+  dataPOHeader.findOne({po_id: req.params.po_id}, function(err, data){
+    data.remove(function(err) {
+      if (err) {
+        res.send(err);
+      } else {
+        res.send('Deleted');
+      }
+    });
+  });
+});
+
 
 module.exports = router;
