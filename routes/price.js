@@ -41,8 +41,8 @@ router.get('/',function(req,res){
     res.send(data);
   });
 });
-router.get('/search',function(req,res){
 
+router.get('/search',function(req, res){
   var params = req.query;
   var gte = params.gte || 0;
   var lte = params.lte || 999999999999999;
@@ -68,7 +68,6 @@ router.get('/search',function(req,res){
     });
     res.send(data);
   });
-
 });
 
 router.get('/:id',function(req,res){
@@ -80,8 +79,6 @@ router.get('/:id',function(req,res){
     res.send(data);
   });
 });
-
-
 
 router.delete('/:id',function(req,res){
   priceDB.findByIdAndRemove(req.params.id,function(err,data){

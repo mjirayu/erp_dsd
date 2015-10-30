@@ -57,7 +57,7 @@ app.use('/users', users);
 app.use('/api/po_header', poHeader);
 app.use('/api/po_transaction', poTransaction);
 app.use('/api', inventory);
-app.use('/product', product);
+app.use('/api/product', product);
 app.use('/api/supplier', supplier);
 app.use('/api/price', price);
 app.use('/api', zone);

@@ -27,7 +27,7 @@ router.post('/', function(req, res, next) {
       if (err) {
         res.send(err);
       } else {
-        res.send('success')
+        res.send('success');
       }
   });
 });
@@ -39,25 +39,23 @@ router.get('/search', function(req, res, next) {
   var sp_name = new RegExp(params.sp_name, 'i');
   var order_date = new RegExp(params.order_date, 'i');
 
-  dataSupplier.find({name: sp_name}, function(err, data) {
-    dataPOHeader
-      .find({
-        po_id: { $regex: po_id },
-        po_status: { $regex: po_status },
-        order_date: { $regex: order_date },
-      })
-      .populate('sp_id', null, {name: { $regex: sp_name }})
-      .exec(function(err, collection) {
-        res.json(collection);
-      });
-  });
-
+  dataPOHeader
+    .find({
+      po_id: { $regex: po_id },
+      po_status: { $regex: po_status },
+      order_date: { $regex: order_date },
+    })
+    .populate('sp_id', null, {name: { $regex: sp_name }})
+    .exec(function(err, collection) {
+      res.json(collection);
+    });
 });
 
 router.get('/:po_id', function(req, res, next) {
   dataPOHeader
     .findOne({po_id: req.params.po_id})
-    .populate('sp_id').exec(function(err, data) {
+    .populate('sp_id')
+    .exec(function(err, data) {
       res.json(data);
     });
 });
