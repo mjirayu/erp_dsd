@@ -7,6 +7,7 @@ router.post('/zone',function(req,res){
   data.zone_name =  req.body.zone_name;
   data.zone_type =  req.body.zone_type;
   data.zone_desc = req.body.zone_desc;
+  data.zone_id = req.body.zone_id;
   data.update_date = Date();
   data.update_by =  "admin";
   data_check = true;

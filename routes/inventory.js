@@ -90,7 +90,7 @@ router.put('/inventory/:id',function(req,res){
   movementData.update_by =  "admin";
   movementData_check = true;
 
-  if(movementData.movement_type.toLowerCase() == 'supply' || movementData.movement_type.toLowerCase() == 'receive'){
+  if(movementData.movement_type == 'supply' || movementData.movement_type == 'receive'){
     movementData_check = true;
   }
   else {
@@ -138,6 +138,13 @@ router.get('/inventory/search',function(req,res){
     .exec(function(err, collection) {
       res.json(collection);
     });
+});
+
+router.delete('/inventory/:id',function(req,res){
+  inventoryModel.findByIdAndRemove(req.params.id,function(err,data){
+    if(err) res.send(err);
+    res.send("deleted");
+  })
 });
 
 
