@@ -6,7 +6,7 @@ var productSchema = new Schema({
   pd_name: String,
   pd_status: String,
   pd_type: String,
-  safety_stock: String,
+  safety_stock: Number,
   unit: String,
   image: String,
   update_date: Date,

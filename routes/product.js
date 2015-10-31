@@ -41,13 +41,15 @@ router.post('/', upload.single('image'), function(req, res, next) {
   data.pd_name =  req.body.pd_name;
   data.pd_type = req.body.pd_type;
   data.pd_status = req.body.pd_status;
+  data.safety_stock = req.body.safety_stock;
   data.update_date = Date();
   data.update_by = 'User';
   data.image = "defalse pic";
+
   if(req.file === undefined) {
-    data.product_image = "asdf";
+    data.image = "asdf";
   }else{
-    data.product_image = req.file.filename;
+    data.image = req.file.filename;
   }
 
   for(var item in data) {
@@ -77,7 +79,7 @@ router.delete('/:id', function(req, res, next) {
       if(err) {
         throw err;
       } else {
-        res.redirect('/product');
+        res.send('Deleted');
       }
     });
   });

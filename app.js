@@ -50,16 +50,16 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(allowCrossDomain);
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'public/erp-front')));
 
 app.use('/', routes);
 app.use('/users', users);
 app.use('/api/po_header', poHeader);
 app.use('/api/po_transaction', poTransaction);
 app.use('/api', inventory);
-app.use('/product', product);
-app.use('/api', supplier);
-app.use('/api', price);
+app.use('/api/product', product);
+app.use('/api/supplier', supplier);
+app.use('/api/price', price);
 app.use('/api', zone);
 app.use('/api', movement_stock);
 
