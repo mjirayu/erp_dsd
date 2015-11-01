@@ -24,11 +24,16 @@ router.post('/', function(req, res, next) {
     update_date: new Date(),
     update_by: 'User'
   }, function(err) {
-      if (err) {
-        res.send(err);
-      } else {
-        res.send('success');
+    if (err) {
+      var message = '';
+      for (field in err.errors) {
+        message = err.errors[field].message + '\n' + message;
       }
+
+      res.send(message);
+    } else {
+      res.send('success');
+    }
   });
 });
 
@@ -51,26 +56,26 @@ router.get('/search', function(req, res, next) {
       data = collection.filter(function(item) {
         if (item.sp_id == null) return false;
         return true;
-        })
-        .map(function(item) {
-            return item;
-        });
+      })
+      .map(function(item) {
+        return item;
+      });
 
       res.send(data);
     });
 });
 
-router.get('/:po_id', function(req, res, next) {
+router.get('/:id', function(req, res, next) {
   dataPOHeader
-    .findOne({po_id: req.params.po_id})
+    .findOne({po_id: req.params.id})
     .populate('sp_id')
     .exec(function(err, data) {
       res.json(data);
     });
 });
 
-router.delete('/:po_id', function(req, res, next) {
-  dataPOHeader.findOne({po_id: req.params.po_id}, function(err, data){
+router.delete('/:id', function(req, res, next) {
+  dataPOHeader.findById(req.params.id, function(err, data){
     data.remove(function(err) {
       if (err) {
         res.send(err);
