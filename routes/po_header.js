@@ -1,7 +1,13 @@
 var express = require('express');
 var router = express.Router();
+
+// Models
 var dataPOHeader = require('./../models/po_header');
 var dataSupplier = require('./../models/m_supplier');
+
+// Helpers
+var dateFunction = require('./../helpers/date');
+var validate = require('./../helpers/validate');
 
 router.get('/', function(req, res, next) {
   dataPOHeader
@@ -13,6 +19,7 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/', function(req, res, next) {
+  var today = dateFunction.getDate();
   dataPOHeader.create({
     po_id: req.body.po_id,
     sp_id: req.body.sp_id,
@@ -21,15 +28,11 @@ router.post('/', function(req, res, next) {
     total: req.body.total,
     po_status: req.body.po_status,
     invoice_no: req.body.invoice_no,
-    update_date: new Date(),
+    update_date: today,
     update_by: 'User'
   }, function(err) {
     if (err) {
-      var message = '';
-      for (field in err.errors) {
-        message = err.errors[field].message + '\n' + message;
-      }
-
+      var message = validate.required(err);
       res.send(message);
     } else {
       res.send('success');
