@@ -4,6 +4,7 @@ var zoneModel = require('./../models/m_zone');
 
 router.post('/zone',function(req,res){
   data = {};
+  console.log(req);
   data.zone_name =  req.body.zone_name;
   data.zone_type =  req.body.zone_type;
   data.zone_desc = req.body.zone_desc;
