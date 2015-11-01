@@ -1,7 +1,13 @@
 var express = require('express');
 var router = express.Router();
-var productDB = require('./../models/m_product');
 var multer  = require('multer');
+
+// Models
+var productDB = require('./../models/m_product');
+
+// Helpers
+var dateFunction = require('./../helpers/date');
+var validate = require('./../helpers/validate');
 
 var storage = multer.diskStorage({
   destination: function(req, file, cb) {
@@ -38,13 +44,14 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/', upload.single('image'), function(req, res, next) {
+  var today = dateFunction.getDate();
   data = {};
   data.pd_id = req.body.pd_id;
   data.pd_name =  req.body.pd_name;
   data.pd_type = req.body.pd_type;
   data.pd_status = req.body.pd_status;
   data.safety_stock = req.body.safety_stock;
-  data.update_date = Date();
+  data.update_date = today;
   data.update_by = 'User';
 
   if (req.file === undefined) {
@@ -55,11 +62,7 @@ router.post('/', upload.single('image'), function(req, res, next) {
 
   productDB.create(data, function(err, data) {
     if (err) {
-      var message = '';
-      for (field in err.errors) {
-        message = err.errors[field].message + '\n' + message;
-      }
-
+      var message = validate.required(err);
       res.send(message);
     }
 
