@@ -55,6 +55,7 @@ router.get('/inventory/search',function(req,res){
   var product_type = new RegExp(params.product_type, 'i');
   var product_name = new RegExp(params.product_name, 'i');
   var product_status = new RegExp(params.product_status, 'i');
+
   inventoryModel
     .find({})
     .populate({
@@ -70,8 +71,18 @@ router.get('/inventory/search',function(req,res){
             }
           })
     .exec(function(err, collection) {
-      res.json(collection);
+      if (err) res.send(err);
+      data = collection.filter(function(item) {
+        if (item.pd_id == null || item.zone_id) return false;
+        return true;
+        })
+        .map(function(item) {
+            return item;
+        });
+
+      res.send(data);
     });
+
 });
 
 router.get('/inventory/:id',function(req,res){
