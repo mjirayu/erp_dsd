@@ -51,6 +51,7 @@ router.post('/', upload.single('image'), function(req, res, next) {
   data.pd_type = req.body.pd_type;
   data.pd_status = req.body.pd_status;
   data.safety_stock = req.body.safety_stock;
+  data.unit = req.body.unit;
   data.update_date = today;
   data.update_by = 'User';
 

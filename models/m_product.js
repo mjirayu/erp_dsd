@@ -1,10 +1,11 @@
 var mongoose = require('mongoose');
+var uniqueValidator = require('mongoose-unique-validator');
 var Schema = mongoose.Schema;
 
 var productSchema = new Schema({
   pd_id: {
     type: String,
-    unique: true,
+    unique: 'This pd_id is already exist',
     required: 'pd_id is required!',
   },
   pd_name: {
@@ -40,5 +41,7 @@ var productSchema = new Schema({
     required: 'update_by is required!',
   },
 });
+
+productSchema.plugin(uniqueValidator);
 
 module.exports = mongoose.model('M_PRODUCT', productSchema);
