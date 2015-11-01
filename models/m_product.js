@@ -32,7 +32,7 @@ var productSchema = new Schema({
     required: 'image is required!',
   },
   update_date: {
-    type: Date,
+    type: String,
     required: 'update_date is required!',
   },
   update_by: {

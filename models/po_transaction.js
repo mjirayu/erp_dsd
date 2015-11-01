@@ -23,7 +23,7 @@ var poTransactionSchema = new Schema({
     required: 'price is required!',
   },
   update_date: {
-    type: Date,
+    type: String,
     required: 'update_date is required!',
   },
   update_by: {
