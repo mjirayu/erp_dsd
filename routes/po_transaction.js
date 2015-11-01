@@ -33,7 +33,7 @@ router.post('/', function(req, res, next) {
     update_by: 'User'
   }, function(err, data) {
     if (err) {
-      var message = validate.required(err);
+      var message = validate.getMessage(err);
       res.send(message);
     } else {
       arrayTransactions.forEach(function(item) {
@@ -46,7 +46,7 @@ router.post('/', function(req, res, next) {
           update_by: 'User',
         }, function(err) {
           if (err) {
-            var message = validate.required(err);
+            var message = validate.getMessage(err);
             res.send(message);
           } else {
             res.send('Created');
@@ -68,7 +68,7 @@ router.put('/:id', function(req, res, next) {
     data.update_by = req.body.update_by;
     data.save(function(err) {
       if (err) {
-        var message = validate.required(err);
+        var message = validate.getMessage(err);
         res.send(message);
       } else {
         res.send('Updated');

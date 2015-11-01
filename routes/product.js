@@ -62,7 +62,7 @@ router.post('/', upload.single('image'), function(req, res, next) {
 
   productDB.create(data, function(err, data) {
     if (err) {
-      var message = validate.required(err);
+      var message = validate.getMessage(err);
       res.send(message);
     }
 

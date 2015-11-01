@@ -32,7 +32,7 @@ router.post('/', function(req, res, next) {
     update_by: 'User'
   }, function(err) {
     if (err) {
-      var message = validate.required(err);
+      var message = validate.getMessage(err);
       res.send(message);
     } else {
       res.send('success');
