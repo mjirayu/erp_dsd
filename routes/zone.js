@@ -37,6 +37,19 @@ router.get('/zone',function(req,res){
   });
 });
 
+router.get('/zone/search', function(req, res, next) {
+  var params = req.query;
+  var zone_type = new RegExp(params.zone_type, 'i');
+  var zone_name = new RegExp(params.zone_name, 'i');
+
+  zoneModel.find({
+      zone_type: { $regex: zone_type },
+      zone_name: { $regex: zone_name }
+    },function(err, data) {
+      res.send(data);
+    });
+});
+
 router.get('/zone/:id',function(req,res){
   zoneModel.findById(req.params.id,function(err,data){
     if(err) res.send(err);
@@ -77,18 +90,7 @@ router.put('/zone/:id',function(req,res){
 
 });
 
-router.get('/zone/search', function(req, res, next) {
-  var params = req.query;
-  var zone_type = new RegExp(params.zone_type, 'i');
-  var zone_name = new RegExp(params.zone_name, 'i');
 
-  zoneModel.find({
-      zone_type: { $regex: zone_type },
-      zone_name: { $regex: zone_name }
-    },function(err, data) {
-      res.send(data);
-    });
-});
 
 
 
