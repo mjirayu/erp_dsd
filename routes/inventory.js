@@ -58,22 +58,16 @@ router.get('/inventory/search',function(req,res){
 
   inventoryModel
     .find({})
-    .populate({
-      path: 'pd_id',
-      match: { product_type: { $regex: product_type },
-              product_name:{ $regex: product_name },
-              product_status:{ $regex: product_status}
-            }
-          })
-    .populate({
-      path: 'zone_id',
-      match: { zone_id: { $regex: zone_id }
-            }
+    .populate('pd_id',null,{ pd_type: { $regex: product_type },
+                              pd_name:{ $regex: product_name },
+                              pd_status:{ $regex: product_status}
+            })
+    .populate('zone_id',null,{ zone_id: { $regex: zone_id }
           })
     .exec(function(err, collection) {
       if (err) res.send(err);
       data = collection.filter(function(item) {
-        if (item.pd_id == null || item.zone_id) return false;
+        if ( item.zone_id == null || item.pd_id == null) return false;
         return true;
         })
         .map(function(item) {
