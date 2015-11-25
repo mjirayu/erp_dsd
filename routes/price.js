@@ -52,7 +52,7 @@ router.get('/search',function(req, res){
   var pd_name = new RegExp(params.pd_name, 'i');
   var date_start = params.date_start ? new Date(params.date_start) : new Date(1900,1,1);
   var date_stop = params.date_stop ? new Date(params.date_stop) : new Date(2020,1,1);
-
+  console.log(params);
   priceDB.find({pd_price:{$gte:gte,$lte:lte},effective_date:{$gte:date_start,$lte: date_stop}})
   .populate('sp_id')
   .populate('pd_id' ,null, {name: { $regex: pd_name }})
