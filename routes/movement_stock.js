@@ -11,13 +11,6 @@ router.get('/movement',function(req,res){
   });
 });
 
-router.get('/movement/:id',function(req,res){
-  movementModel.findById(req.params.id,function(err,data){
-    if(err) res.send(err);
-    res.send(data);
-  })
-});
-
 router.get('/movement/search/date', function(req, res, next) {
   var params = req.query;
   var movement_type = new RegExp(params.transaction_type, 'i');
@@ -84,6 +77,12 @@ router.get('/movement/search/period', function(req, res, next) {
     }
     });
 
+    router.get('/movement/:id',function(req,res){
+      movementModel.findById(req.params.id,function(err,data){
+        if(err) res.send(err);
+        res.send(data);
+      })
+    });
 
 
 module.exports = router;
