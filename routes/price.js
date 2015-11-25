@@ -55,7 +55,7 @@ router.get('/search',function(req, res){
 
   priceDB.find({pd_price:{$gte:gte,$lte:lte},effective_date:{$gte:date_start,$lte: date_stop}})
   .populate('sp_id')
-  .populate('pd_id')
+  .populate('pd_id' ,null, {name: { $regex: pd_name }})
   .exec(function(err,collection){
     if(err) res.send(err);
     data = collection.filter(function(item){
