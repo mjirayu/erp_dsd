@@ -16,7 +16,7 @@ router.post('/inventory',function(req,res){
   data.pd_id =  req.body.pd_id ;
   data.quantity=  req.body.quantity;
   data.zone_id = req.body.zone_id;
-  data.update_date = Date();
+  data.update_date = today;
   data.update_by =  "admin";
   data_check = true;
 
@@ -41,11 +41,11 @@ router.post('/inventory',function(req,res){
   // update movement
   movementData = {};
   movementData.pd_id =  req.body.pd_id ;
-  movementData.movement_type = "supply";
+  movementData.movement_type = "receive)";
   movementData.movement_id = req.body.movement_id;
   movementData.quantity = req.body.quantity;
   movementData.ref_po_id = null;
-  movementData.update_date = Date();
+  movementData.update_date = today;
   movementData.update_by =  "admin";
   movementData_check = true;
 
@@ -57,7 +57,7 @@ router.post('/inventory',function(req,res){
     movementData_check = false;
   }
   */
-
+/*
   for(item in movementData) {
     console.log(item + " is "+movementData[item]);
     if(movementData[item] === undefined || movementData[item] === "") {
@@ -65,7 +65,7 @@ router.post('/inventory',function(req,res){
       movementData = false;
       break;
     }
-  }
+  }*/
   if(!movementData_check) return false;
   movementModel.create(movementData,function(err,data){
     if (err) {
