@@ -31,8 +31,9 @@ router.post('/zone',function(req,res){
     if(err) {
       var message = validate.getMessage(err);
       res.send(message);
+    }else{
+      res.send(data);
     }
-    res.send(data);
   });
 
 });

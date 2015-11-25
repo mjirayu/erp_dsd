@@ -158,6 +158,7 @@ router.put('/inventory/supply/:id',function(req,res){
       res.send(message);
     } else {
       res.send(data);
+    }
   });
 
   // update MOVEMENT_STOCK
@@ -196,6 +197,7 @@ router.put('/inventory/supply/:id',function(req,res){
       console.log(message);
     } else {
       console.log(data);
+    }
   });
 
 });
@@ -225,6 +227,7 @@ router.put('/inventory/:id',function(req,res){
       res.send(message);
     } else {
       res.send(data);
+    }
   });
 });
 
