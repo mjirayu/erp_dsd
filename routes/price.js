@@ -65,7 +65,7 @@ router.get('/search',function(req, res){
     }).map( function(item) {
       return item;
     });
-    res.send(data);
+    res.send(collection);
   });
 });
 
