@@ -2,28 +2,36 @@ var express = require('express');
 var router = express.Router();
 var zoneModel = require('./../models/m_zone');
 
+var dateFunction = require('./../helpers/date');
+var validate = require('./../helpers/validate');
+
 router.post('/zone',function(req,res){
+  var today = dateFunction.getDate();
   data = {};
   console.log(req);
   data.zone_name =  req.body.zone_name;
   data.zone_type =  req.body.zone_type;
   data.zone_desc = req.body.zone_desc;
   data.zone_id = req.body.zone_id;
-  data.update_date = Date();
+  data.update_date = today;
   data.update_by =  "admin";
   data_check = true;
 
-  for(item in data) {
+/*  for(item in data) {
     console.log(item + " is "+data[item]);
     if(data[item] === undefined || data[item] === "") {
       res.send(item + " is undefined");
       data_check = false;
       break;
     }
-  }
+  }*/
+
   if(!data_check) return false;
   zoneModel.create(data,function(err,data){
-    if(err) res.send(err);
+    if(err) {
+      var message = validate.getMessage(err);
+      res.send(message);
+    }
     res.send(data);
   });
 
@@ -65,27 +73,32 @@ router.delete('/zone/:id',function(req,res){
 });
 
 router.put('/zone/:id',function(req,res){
+  var today = dateFunction.getDate();
   data = {};
   data.zone_id = req.body.zone_id;
   data.zone_name =  req.body.zone_name;
   data.zone_type =  req.body.zone_type;
   data.zone_desc = req.body.zone_desc;
-  data.update_date = Date();
+  data.update_date = today;
   data.update_by =  "admin";
   data_check = true;
 
-  for(item in data) {
+/*  for(item in data) {
     console.log(item + " is "+data[item]);
     if(data[item] === undefined || data[item] === "") {
       res.send(item + " is undefined");
       data_check = false;
       break;
     }
-  }
+  }*/
   if(!data_check) return false;
   zoneModel.findByIdAndUpdate(req.params.id,data,function(err,data){
-    if(err) res.send(err);
-    res.send(data);
+    if(err) {
+      var message = validate.getMessage(err);
+      res.send(message);
+    } else{
+      res.send(data);
+    }
   });
 
 });

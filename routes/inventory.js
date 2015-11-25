@@ -5,9 +5,13 @@ var productModel = require('./../models/m_product');
 var zoneModel = require('./../models/m_zone');
 var movementModel = require('./../models/movement_stock');
 
+var dateFunction = require('./../helpers/date');
+var validate = require('./../helpers/validate');
+
 /* GET users listing. */
 
 router.post('/inventory',function(req,res){
+  var today = dateFunction.getDate();
   data = {};
   data.pd_id =  req.body.pd_id ;
   data.quantity=  req.body.quantity;
@@ -16,18 +20,22 @@ router.post('/inventory',function(req,res){
   data.update_by =  "admin";
   data_check = true;
 
-  for(item in data) {
+/*  for(item in data) {
     console.log(item + " is "+data[item]);
     if(data[item] === undefined || data[item] === "") {
       res.send(item + " is undefined");
       data_check = false;
       break;
     }
-  }
+  }*/
   if(!data_check) return false;
   inventoryModel.create(data,function(err,data){
-    if(err) res.send(err);
-    res.send(data);
+    if(err) {
+      var message = validate.getMessage(err);
+      res.send(message);
+    } else{
+      res.send(data);
+    }
   });
 
   // update movement
@@ -49,6 +57,7 @@ router.post('/inventory',function(req,res){
     movementData_check = false;
   }
   */
+
   for(item in movementData) {
     console.log(item + " is "+movementData[item]);
     if(movementData[item] === undefined || movementData[item] === "") {
@@ -59,8 +68,12 @@ router.post('/inventory',function(req,res){
   }
   if(!movementData_check) return false;
   movementModel.create(movementData,function(err,data){
-    if(err) res.send(err);
-    //res.send(data);
+    if (err) {
+      var message = validate.getMessage(err);
+      console.log(message);
+    } else {
+      console.log(data);
+    }
   });
 
 });
@@ -120,15 +133,16 @@ router.get('/inventory/:id',function(req,res){
 });
 
 router.put('/inventory/supply/:id',function(req,res){
+  var today = dateFunction.getDate();
   inventoryData = {};
   inventoryData.pd_id =  req.body.pd_id ;
   inventoryData.quantity=  req.body.quantity;
   inventoryData.zone_id = req.body.zone_id;
-  inventoryData.update_date = Date();
+  inventoryData.update_date = today;
   inventoryData.update_by =  "admin";
   inventoryData_check = true;
 
-  for(item in inventoryData) {
+/*  for(item in inventoryData) {
     console.log(item + " is "+inventoryData[item]);
     if(inventoryData[item] === undefined || inventoryData[item] === "") {
       res.send(item + " is undefined");
@@ -136,10 +150,14 @@ router.put('/inventory/supply/:id',function(req,res){
       break;
     }
   }
+  */
   if(!inventoryData_check) return false;
   inventoryModel.findByIdAndUpdate(req.params.id,inventoryData,function(err,data){
-    if(err) res.send(err);
-    res.send(data);
+    if (err) {
+      var message = validate.getMessage(err);
+      res.send(message);
+    } else {
+      res.send(data);
   });
 
   // update MOVEMENT_STOCK
@@ -150,7 +168,7 @@ router.put('/inventory/supply/:id',function(req,res){
   movementData.movement_id = req.body.movement_id;
   movementData.quantity = req.body.quantity;
   movementData.ref_po_id = null;
-  movementData.update_date = Date();
+  movementData.update_date = today;
   movementData.update_by =  "admin";
   movementData_check = true;
 
@@ -162,6 +180,7 @@ router.put('/inventory/supply/:id',function(req,res){
     movementData_check = false;
   }
 */
+/*
   for(item in movementData) {
     console.log(item + " is "+movementData[item]);
     if(movementData[item] === undefined || movementData[item] === "") {
@@ -169,36 +188,43 @@ router.put('/inventory/supply/:id',function(req,res){
       movementData = false;
       break;
     }
-  }
+  }*/
   if(!movementData_check) return false;
   movementModel.create(movementData,function(err,data){
-    if(err) res.send(err);
-    //res.send(data);
+    if (err) {
+      var message = validate.getMessage(err);
+      console.log(message);
+    } else {
+      console.log(data);
   });
 
 });
 
 router.put('/inventory/:id',function(req,res){
+  var today = dateFunction.getDate();
   inventoryData = {};
   inventoryData.pd_id =  req.body.pd_id ;
   inventoryData.quantity=  req.body.quantity;
   inventoryData.zone_id = req.body.zone_id;
-  inventoryData.update_date = Date();
+  inventoryData.update_date = today;
   inventoryData.update_by =  "admin";
   inventoryData_check = true;
 
-  for(item in inventoryData) {
+/*  for(item in inventoryData) {
     console.log(item + " is "+inventoryData[item]);
     if(inventoryData[item] === undefined || inventoryData[item] === "") {
       res.send(item + " is undefined");
       inventoryData_check = false;
       break;
     }
-  }
+  }*/
   if(!inventoryData_check) return false;
   inventoryModel.findByIdAndUpdate(req.params.id,inventoryData,function(err,data){
-    if(err) res.send(err);
-    res.send(data);
+    if (err) {
+      var message = validate.getMessage(err);
+      res.send(message);
+    } else {
+      res.send(data);
   });
 });
 
