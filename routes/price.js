@@ -41,8 +41,8 @@ router.get('/',function(req,res){
     res.send(data);
   });
 });
-router.get('/search',function(req,res){
 
+router.get('/search',function(req, res){
   var params = req.query;
   var gte = params.gte || 0;
   var lte = params.lte || 999999999999999;
@@ -56,7 +56,6 @@ router.get('/search',function(req,res){
   priceDB.find({pd_price:{$gte:gte,$lte:lte},effective_date:{$gte:date_start,$lte: date_stop}})
   .populate('sp_id' ,null, { code: { $regex: sp_code }, name: { $regex: sp_name }})
   .populate('pd_id' ,null, { code: { $regex: pd_code }, name: { $regex: pd_name }})
-
   .exec(function(err,collection){
     if(err) res.send(err);
     data = collection.filter(function(item){
@@ -68,7 +67,6 @@ router.get('/search',function(req,res){
     });
     res.send(data);
   });
-
 });
 
 router.get('/:id',function(req,res){
@@ -80,8 +78,6 @@ router.get('/:id',function(req,res){
     res.send(data);
   });
 });
-
-
 
 router.delete('/:id',function(req,res){
   priceDB.findByIdAndRemove(req.params.id,function(err,data){

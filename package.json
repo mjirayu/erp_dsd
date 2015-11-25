@@ -16,6 +16,7 @@
     "jade": "~1.11.0",
     "mocha": "^2.3.3",
     "mongoose": "^4.1.11",
+    "mongoose-unique-validator": "^0.6.0",
     "morgan": "^1.6.1",
     "multer": "^1.0.6",
     "path": "^0.12.7",

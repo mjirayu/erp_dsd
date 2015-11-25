@@ -1,5 +1,7 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
+var M_SUPPLIER = require('./m_supplier');
+var M_PRODUCT = require('./m_product');
 
 var priceSchema = new Schema({
   sp_id: {

@@ -8,6 +8,7 @@ router.post('/zone',function(req,res){
   data.zone_name =  req.body.zone_name;
   data.zone_type =  req.body.zone_type;
   data.zone_desc = req.body.zone_desc;
+  data.zone_id = req.body.zone_id;
   data.update_date = Date();
   data.update_by =  "admin";
   data_check = true;
@@ -34,6 +35,19 @@ router.get('/zone',function(req,res){
     if(err) res.send(err);
     res.send(data);
   });
+});
+
+router.get('/zone/search', function(req, res, next) {
+  var params = req.query;
+  var zone_type = new RegExp(params.zone_type, 'i');
+  var zone_name = new RegExp(params.zone_name, 'i');
+
+  zoneModel.find({
+      zone_type: { $regex: zone_type },
+      zone_name: { $regex: zone_name }
+    },function(err, data) {
+      res.send(data);
+    });
 });
 
 router.get('/zone/:id',function(req,res){
@@ -76,18 +90,7 @@ router.put('/zone/:id',function(req,res){
 
 });
 
-router.get('/zone/search', function(req, res, next) {
-  var params = req.query;
-  var zone_type = new RegExp(params.zone_type, 'i');
-  var zone_name = new RegExp(params.zone_name, 'i');
 
-  zoneModel.find({
-      zone_type: { $regex: zone_type },
-      zone_name: { $regex: zone_name }
-    },function(err, data) {
-      res.send(data);
-    });
-});
 
 
 
