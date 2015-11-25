@@ -54,8 +54,8 @@ router.get('/search',function(req, res){
   var date_stop = params.date_stop ? new Date(params.date_stop) : new Date(2020,1,1);
 
   priceDB.find({pd_price:{$gte:gte,$lte:lte},effective_date:{$gte:date_start,$lte: date_stop}})
-  .populate('sp_id' ,null, { code: { $regex: sp_code }, name: { $regex: sp_name }})
-  .populate('pd_id' ,null, { code: { $regex: pd_code }, name: { $regex: pd_name }})
+  .populate('sp_id')
+  .populate('pd_id')
   .exec(function(err,collection){
     if(err) res.send(err);
     data = collection.filter(function(item){
