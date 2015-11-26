@@ -205,7 +205,7 @@ router.put('/inventory/supply/:id',function(req,res){
 router.put('/inventory/:id',function(req,res){
   var today = dateFunction.getDate();
   inventoryData = {};
-  inventoryData.pd_id =  req.body.pd_id ;
+  //inventoryData.pd_id =  req.body.pd_id ;
   inventoryData.quantity=  req.body.quantity;
   inventoryData.zone_id = req.body.zone_id;
   inventoryData.update_date = today;
@@ -229,6 +229,32 @@ router.put('/inventory/:id',function(req,res){
       res.send(data);
     }
   });
+
+  //productModel
+  productData = {};
+  //inventoryData.pd_id =  req.body.pd_id ;
+  productData.safety_stock=  req.body.safety_stock;
+  productData_check = true;
+
+/*  for(item in inventoryData) {
+    console.log(item + " is "+inventoryData[item]);
+    if(inventoryData[item] === undefined || inventoryData[item] === "") {
+      res.send(item + " is undefined");
+      inventoryData_check = false;
+      break;
+    }
+  }*/
+  if(!productData_check) return false;
+  productModel.findByIdAndUpdate(req.body.pd_id,productData,function(err,data){
+    if (err) {
+      var message = validate.getMessage(err);
+      console.log(message);
+    } else {
+      console.log(data);
+    }
+  });
+
+
 });
 
 
