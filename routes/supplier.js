@@ -24,7 +24,10 @@ var storage = multer.diskStorage({
         req.middlewareStorage = {
           fileimage : fileimage,
         };
-      }
+      },
+    onError: function(err,next){
+      next();
+    }
 });
 
 var upload = multer({ storage: storage });
@@ -120,7 +123,9 @@ router.put('/:id',upload.single('logo'),function(req,res){
   data.name = req.body.name;
   data.delivery_day = new Date(req.body.delivery_day);
   data.address = req.body.address;
-  data.image = req.file.filename;
+  if(req.file.filename){
+    data.image = req.file.filename;
+  }
   data.website =  req.body.website;
   data.phone = req.body.phone;
   data.fax = req.body.fax;
