@@ -37,6 +37,7 @@ router.post('/', function(req, res, next) {
       res.send(message);
     } else {
       arrayTransactions.forEach(function(item) {
+        res.send(item);
         res.send('po transactions ' + item);
         dataTransaction.create({
           po_id: data._id,
