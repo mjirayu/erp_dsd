@@ -24,10 +24,7 @@ var storage = multer.diskStorage({
         req.middlewareStorage = {
           fileimage : fileimage,
         };
-      },
-    onError: function(err,next){
-      next();
-    }
+      }
 });
 
 var upload = multer({ storage: storage });
