@@ -8,6 +8,7 @@ var storage = multer.diskStorage({
         cb(null, __dirname+'/../public/uploads');
     },
     filename: function (req, file, cb) {
+      console.log(file.mimetype);
         var lastfilename = "";
         if(file.mimetype=="image/jpeg"){
           lastfilename = ".jpg";
