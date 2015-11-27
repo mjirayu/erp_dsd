@@ -14,6 +14,7 @@ router.get('/', function(req, res, next) {
     .find({})
     .populate('sp_id')
     .exec(function(err, collection) {
+      collection.push({size: collection.length});
       res.json(collection);
     });
 });
@@ -88,6 +89,5 @@ router.delete('/:id', function(req, res, next) {
     });
   });
 });
-
 
 module.exports = router;
