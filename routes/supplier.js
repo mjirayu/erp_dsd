@@ -8,7 +8,6 @@ var storage = multer.diskStorage({
         cb(null, __dirname+'/../public/uploads');
     },
     filename: function (req, file, cb) {
-      console.log(file.mimetype);
         var lastfilename = "";
         if(file.mimetype=="image/jpeg"){
           lastfilename = ".jpg";
@@ -25,7 +24,10 @@ var storage = multer.diskStorage({
         req.middlewareStorage = {
           fileimage : fileimage,
         };
-      }
+      },
+    onError: function(err,next){
+      next();
+    }
 });
 
 var upload = multer({ storage: storage });
