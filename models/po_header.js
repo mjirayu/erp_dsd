@@ -24,7 +24,7 @@ var poHeaderSchema = new Schema({
   },
   untaxed_total: {
     type: Number,
-    required: 'untaxed_total is required!',
+    // required: 'untaxed_total is required!',
   },
   total: {
     type: Number,
