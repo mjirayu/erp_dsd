@@ -36,7 +36,6 @@ var poHeaderSchema = new Schema({
   },
   invoice_no: {
     type: String,
-    required: 'invoice_no is required!',
   },
   update_date: {
     type: String,

@@ -70,22 +70,26 @@ router.get('/search', function(req, res, next) {
 });
 
 router.put('/close/:id', function(req, res, next) {
-  dataUser.findByIdAndUpdate(
-    req.params.id,
-    {
-      $set: {
-        'invoice_no': req.body.invoice_no,
+  if (req.body.invoice_no) {
+    dataPOHeader.findByIdAndUpdate(
+      req.params.id,
+      {
+        $set: {
+          'invoice_no': req.body.invoice_no,
+        },
       },
-    },
-    function(err, data) {
-      if (err) {
-        message = validate.getMessage(err);
-        res.send(message);
-      } else {
-        res.send('Success');
+      function(err, data) {
+        if (err) {
+          message = validate.getMessage(err);
+          res.send(message);
+        } else {
+          res.send('Success');
+        }
       }
-    }
-  );
+    );
+  } else {
+    res.send('invoice_no is null');
+  }
 });
 
 router.get('/:id', function(req, res, next) {
