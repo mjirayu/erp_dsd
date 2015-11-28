@@ -90,4 +90,22 @@ router.delete('/:id', function(req, res, next) {
   });
 });
 
+router.get('/search', function(req, res, next) {
+  var params = req.query;
+  var pd_id = new regexp(params.pd_id, 'i');
+  var pd_status = new regexp(params.pd_status, 'i');
+  var pd_name = new regexp(params.pd_name, 'i');
+
+  productDB
+    .find({
+      pd_id: { $regex: pd_id },
+      pd_status: { $regex: pd_status },
+      pd_name: { $regex: pd_name },
+    })
+    .exec(function(err, collection) {
+      if (err) res.send(err);
+      res.json(collection);
+    });
+});
+
 module.exports = router;
