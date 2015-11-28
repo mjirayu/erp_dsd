@@ -78,7 +78,9 @@ router.get('/movement/search/period', function(req, res, next) {
     });
 
     router.get('/movement/:id',function(req,res){
-      movementModel.findById(req.params.id,function(err,data){
+      movementModel.find({
+        pd_id: req.params.id
+      },function(err,data){
         if(err) res.send(err);
         res.send(data);
       })

@@ -12,22 +12,60 @@ var validate = require('./../helpers/validate');
 
 router.post('/inventory',function(req,res){
   var today = dateFunction.getDate();
+  arrayProduct = req.body.products;
+  ////////////////////////////////////
+  arrayProduct.forEach(function(item) {
+    inventoryModel.create({
+      pd_id: item.pd_id,
+      quantity: item.quantity,
+      zone_id: null,
+      update_date: today,
+      update_by: 'admin',
+    }, function(err) {
+      if (err) {
+        var message = validate.getMessage(err);
+        res.send(message);
+      } else {
+        res.send('Created');
+      }
+    });
+    ///////movement/////////////
+    movementData = {};
+    movementData.pd_id =  item.pd_id ;
+    movementData.movement_type = "receive";
+    movementData.movement_id = item.movement_id;
+    movementData.quantity = item.quantity;
+    movementData.ref_po_id = null;
+    movementData.update_date = today;
+    movementData.update_by =  "admin";
+
+    movementModel.create(movementData,function(err,data){
+      if (err) {
+        var message = validate.getMessage(err);
+        console.log(message);
+      } else {
+        console.log(data);
+      }
+    });
+  });
+  ////////////////////////////////////
+  /*
   data = {};
   data.pd_id =  req.body.pd_id ;
   data.quantity=  req.body.quantity;
-  data.zone_id = req.body.zone_id;
+  data.zone_id = null;
   data.update_date = today;
   data.update_by =  "admin";
   data_check = true;
 
-/*  for(item in data) {
+  for(item in data) {
     console.log(item + " is "+data[item]);
     if(data[item] === undefined || data[item] === "") {
       res.send(item + " is undefined");
       data_check = false;
       break;
     }
-  }*/
+  }
   if(!data_check) return false;
   inventoryModel.create(data,function(err,data){
     if(err) {
@@ -49,15 +87,17 @@ router.post('/inventory',function(req,res){
   movementData.update_by =  "admin";
   movementData_check = true;
 
-  /*  if(movementData.movement_type == 'supply' || movementData.movement_type == 'receive'){
+
+
+    if(movementData.movement_type == 'supply' || movementData.movement_type == 'receive'){
     movementData_check = true;
   }
   else {
     res.send("Invalid movement type"+movementData.movement_type);
     movementData_check = false;
   }
-  */
-/*
+
+
   for(item in movementData) {
     console.log(item + " is "+movementData[item]);
     if(movementData[item] === undefined || movementData[item] === "") {
@@ -65,7 +105,7 @@ router.post('/inventory',function(req,res){
       movementData = false;
       break;
     }
-  }*/
+  }
   if(!movementData_check) return false;
   movementModel.create(movementData,function(err,data){
     if (err) {
@@ -75,7 +115,7 @@ router.post('/inventory',function(req,res){
       console.log(data);
     }
   });
-
+*/
 });
 
 router.get('/inventory',function(req,res){
