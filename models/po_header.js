@@ -7,43 +7,43 @@ var poHeaderSchema = new Schema({
   po_id: {
     type: String,
     unique: 'po_id is already exist!',
-    required: 'po_id is required!',
+    required: 'po_id is null.',
   },
   sp_id: {
     type: Schema.ObjectId,
     ref: 'M_SUPPLIER',
-    required: 'sp_id is required!',
+    required: 'sp_id is null.',
   },
   order_date: {
     type: String,
-    required: 'order_date is required!',
+    required: 'order_date is null.',
   },
   expected_date: {
     type: String,
-    required: 'expected_date is required!',
+    required: 'expected_date is null.',
   },
   untaxed_total: {
     type: Number,
-    required: 'untaxed_total is required!',
+    required: 'untaxed_total is null.',
   },
   total: {
     type: Number,
-    required: 'total is required!',
+    required: 'total is null.',
   },
   po_status: {
     type: String,
-    required: 'po_status is required!',
+    required: 'po_status is null.',
   },
   invoice_no: {
     type: String,
   },
   update_date: {
     type: String,
-    required: 'update_date is required!',
+    required: 'update_date is null.',
   },
   update_by: {
     type: String,
-    required: 'update_by is required!',
+    required: 'update_by is null.',
   },
 });
 
