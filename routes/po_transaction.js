@@ -19,6 +19,12 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/', function(req, res, next) {
+  if (req.body.po_id) {
+    if (validate.checkFormat(req.body.po_id, 'PO')) {
+      res.send('poNo is not in correct format.');
+    };
+  };
+
   var arrayTransactions = req.body.transactions;
   var today = dateFunction.getDate();
   dataPOHeader.create({

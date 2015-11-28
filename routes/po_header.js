@@ -20,6 +20,13 @@ router.get('/', function(req, res, next) {
 
 router.post('/', function(req, res, next) {
   var today = dateFunction.getDate();
+
+  if (req.body.po_id) {
+    if (validate.checkFormat(req.body.po_id, 'PO')) {
+      res.send('poNo is not in correct format.');
+    };
+  };
+
   dataPOHeader.create({
     po_id: req.body.po_id,
     sp_id: req.body.sp_id,
