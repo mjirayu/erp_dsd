@@ -208,7 +208,7 @@ router.put('/inventory/supply/:id',function(req,res){
   movementData.movement_type = "supply";
   movementData.movement_id = req.body.movement_id;
   movementData.quantity = req.body.quantity;
-  movementData.ref_po_id = null;
+  movementData.ref_po_id = 'null';
   movementData.update_date = new Date();
   movementData.update_by =  "admin";
   movementData_check = true;
