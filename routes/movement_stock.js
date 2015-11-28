@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var movementModel = require('./../models/movement_stock');
+var dateFunction = require('./../helpers/date');
 
 /* GET users listing. */
 
@@ -12,9 +13,10 @@ router.get('/movement',function(req,res){
 });
 
 router.get('/movement/search/date', function(req, res, next) {
+  var today = dateFunction.getDate();
   var params = req.query;
   var movement_type = new RegExp(params.transaction_type, 'i');
-  var date_from = new Date(params.date_from);
+  var date_from = new Date(today);
   var date_to = new Date(params.date_to);
   var pd_id = params.pd_id;
 
@@ -34,10 +36,11 @@ router.get('/movement/search/date', function(req, res, next) {
 router.get('/movement/search/period', function(req, res, next) {
   /*var lastWeek = new Date();
   lastWeek.setDate(lastWeek.getDate() -7);*/
+  var today = dateFunction.getDate();
   var params = req.query;
   var movement_type = new RegExp(params.transaction_type, 'i');
   var date_to = new Date();
-  var date_from = new Date();
+  var date_from = new Date(today);
   var pd_id = params.pd_id;
   var period = params.period;
   var check_date = false;
