@@ -42,6 +42,7 @@ router.get('/movement/search/period', function(req, res, next) {
   var period = params.period;
   var check_date = false;
 
+
   if(period == "today") {
     check_date = true;
   } else if (period == "7days") {
@@ -62,15 +63,23 @@ router.get('/movement/search/period', function(req, res, next) {
   }else {
     res.send('Period is not match :'+period);
   }
-
+/*
+  console.log(params);
+  console.log(date_from);
+  console.log(date_to);
+*/
   if(check_date){
     movementModel.find({
         pd_id: pd_id,
         movement_type: { $regex: movement_type },
-        update_date : {
+        update_date : { //$lte : new Date("2015-11-28T13:19:41.000Z")
           $gte: date_from,
           $lte: date_to
         }
+        /*{
+          $gte: startDate.toDate(),
+          $lte: endDate.toDate()
+        }*/
       },function(err, data) {
         res.send(data);
       });
