@@ -36,7 +36,7 @@ router.post('/inventory',function(req,res){
     movementData.movement_id = item.movement_id;
     movementData.quantity = item.quantity;
     movementData.ref_po_id = null;
-    movementData.update_date = today;
+    movementData.update_date = new Date();
     movementData.update_by =  "admin";
 
     movementModel.create(movementData,function(err,data){
@@ -209,7 +209,7 @@ router.put('/inventory/supply/:id',function(req,res){
   movementData.movement_id = req.body.movement_id;
   movementData.quantity = req.body.quantity;
   movementData.ref_po_id = null;
-  movementData.update_date = today;
+  movementData.update_date = new Date();
   movementData.update_by =  "admin";
   movementData_check = true;
 

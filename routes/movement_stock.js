@@ -48,16 +48,16 @@ router.get('/movement/search/period', function(req, res, next) {
     date_from.setDate(date_from.getDate() -7);
     check_date = true;
   } else if (period == "1month") {
-    date_from.setDate(date_from.getDate() -30);
+    date_from.setMonth(date_from.getMonth() -1);
     check_date = true;
   }else if (period == "3months") {
-    date_from.setDate(date_from.getDate() -90);
+    date_from.setMonth(date_from.getMonth() -3);
     check_date = true;
   }else if (period == "6months") {
-    date_from.setDate(date_from.getDate() -180);
+    date_from.setMonth(date_from.getMonth() -6);
     check_date = true;
   }else if (period == "1year") {
-    date_from.setDate(date_from.getDate() -365);
+    date_from.setFullYear(date_from.getFullYear() -1);
     check_date = true;
   }else {
     res.send('Period is not match :'+period);
