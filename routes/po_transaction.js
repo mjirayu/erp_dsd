@@ -26,6 +26,7 @@ router.post('/', function(req, res, next) {
     sp_id: req.body.sp_id,
     order_date: req.body.order_date,
     expected_date: req.body.expected_date,
+    untaxed_total: req.body.untaxed_total,
     total: req.body.total,
     po_status: req.body.po_status,
     invoice_no: req.body.invoice_no,

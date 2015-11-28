@@ -6,7 +6,7 @@ var M_SUPPLIER = require('./m_supplier');
 var poHeaderSchema = new Schema({
   po_id: {
     type: String,
-    unique: 'po_id is required!',
+    unique: 'po_id is already exist!',
     required: 'po_id is required!',
   },
   sp_id: {
@@ -24,7 +24,7 @@ var poHeaderSchema = new Schema({
   },
   untaxed_total: {
     type: Number,
-    // required: 'untaxed_total is required!',
+    required: 'untaxed_total is required!',
   },
   total: {
     type: Number,
