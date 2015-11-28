@@ -115,54 +115,62 @@ router.delete('/:id',function(req,res){
     res.send("deleted");
   })
 });
+var updatelogo = upload.single('logo');
+router.put('/:id',function(req,res){
+  updatelogo(req,res, function(err){
+    data = {};
+    data.sp_id = req.body.sp_id;
+    data.code =  req.body.code;
+    data.name = req.body.name;
+    data.delivery_day = new Date(req.body.delivery_day);
+    data.address = req.body.address;
+    havenewlogo = false;
+    try {
+      data.image = req.file.filename;
+      havenewlogo = true;
+    }
+    catch(err) {
+        console.log("Have no new image!!!");
+    }
 
-router.put('/:id',upload.single('logo'),function(req,res){
-  data = {};
-  data.sp_id = req.body.sp_id;
-  data.code =  req.body.code;
-  data.name = req.body.name;
-  data.delivery_day = new Date(req.body.delivery_day);
-  data.address = req.body.address;
-  if(req.file.filename){
-    data.image = req.file.filename;
-  }
-  data.website =  req.body.website;
-  data.phone = req.body.phone;
-  data.fax = req.body.fax;
-  data.sale_person_name = req.body.sale_person_name;
-  data.sale_person_mobile = req.body.sale_person_mobile;
-  data.sale_person_email = req.body.sale_person_email;
-  data.status = req.body.status;
-  data.date = new Date();
+    data.website =  req.body.website;
+    data.phone = req.body.phone;
+    data.fax = req.body.fax;
+    data.sale_person_name = req.body.sale_person_name;
+    data.sale_person_mobile = req.body.sale_person_mobile;
+    data.sale_person_email = req.body.sale_person_email;
+    data.status = req.body.status;
+    data.date = new Date();
 
-  data_check = true;
-  if(data.delivery_day == "" || data.delivery_day == "Invalid Date"){
-    res.send("Invalid Date");
-    data_check = false;
-  }
-  for(item in data) {
-    console.log(item + " is "+data[item]);
-    if(data[item] === undefined || data[item] === "") {
-      res.send(item + " is undefined");
+    data_check = true;
+    if(data.delivery_day == "" || data.delivery_day == "Invalid Date"){
+      res.send("Invalid Date");
       data_check = false;
-      break;
     }
-  }
-  if(!data_check){
-    fs.unlink('public/uploads/'+req.file.filename, function (err) {
-      if (err) throw err;
-      console.log('successfully deleted /tmp/hello');
-    });
+    for(item in data) {
+      console.log(item + " is "+data[item]);
+      if(data[item] === undefined || data[item] === "") {
+        res.send(item + " is undefined");
+        data_check = false;
+        break;
+      }
+    }
 
-    return false;
-  }
-  supplierDB.findByIdAndUpdate(req.params.id,data,function(err,data){
-    if(err){
-      res.send(err);
-    }else{
-      res.send({status:'successfully',data:data});
-    }
+    supplierDB.findByIdAndUpdate(req.params.id,data,function(err,data){
+      if(err){
+        res.send(err);
+      }else{
+        if(havenewlogo){
+          fs.unlink('public/uploads/'+data.image, function (err) {
+            if (err) throw err;
+            console.log('successfully deleted');
+          });
+        }
+        res.send({status:'successfully',data:data});
+      }
+    });
   });
+
 });
 
 
