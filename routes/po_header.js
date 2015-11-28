@@ -69,6 +69,25 @@ router.get('/search', function(req, res, next) {
     });
 });
 
+router.put('/close/:id', function(req, res, next) {
+  dataUser.findByIdAndUpdate(
+    req.params.id,
+    {
+      $set: {
+        'invoice_no': req.body.invoice_no,
+      },
+    },
+    function(err, data) {
+      if (err) {
+        message = validate.getMessage(err);
+        res.send(message);
+      } else {
+        res.send('Success');
+      }
+    }
+  );
+});
+
 router.get('/:id', function(req, res, next) {
   dataPOHeader
     .findOne({po_id: req.params.id})
@@ -79,7 +98,7 @@ router.get('/:id', function(req, res, next) {
 });
 
 router.delete('/:id', function(req, res, next) {
-  dataPOHeader.findById(req.params.id, function(err, data){
+  dataPOHeader.findById(req.params.id, function(err, data) {
     data.remove(function(err) {
       if (err) {
         res.send(err);
