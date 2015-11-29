@@ -21,8 +21,7 @@ var movementSchema = new Schema({
     required: 'quantity is required!',
   },
   ref_po_id: {
-    type: String,
-    required: 'ref_po_id is required!',
+    type: String
   },
   update_date: {
     type: Date,
