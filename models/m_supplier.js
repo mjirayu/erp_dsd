@@ -12,7 +12,7 @@ var supplierSchema = new Schema({
     unique: true
   },
   name: String,
-  delivery_day: String,
+  delivery_day: Number,
   address: String,
   image: String,
   website: String,

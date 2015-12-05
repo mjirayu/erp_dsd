@@ -33,6 +33,7 @@ var supplier = require('./routes/supplier');
 var price = require('./routes/price');
 var zone = require('./routes/zone');
 var movement_stock = require('./routes/movement_stock');
+var incoming = require('./routes/incoming')
 
 var app = express();
 
@@ -63,6 +64,7 @@ app.use('/api/supplier', supplier);
 app.use('/api/price', price);
 app.use('/api', zone);
 app.use('/api', movement_stock);
+app.use('/api', incoming);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -31,53 +31,64 @@ var storage = multer.diskStorage({
 });
 
 var upload = multer({ storage: storage });
-
-router.post('/',upload.single('logo'),function(req,res){
-  data = {};
-  data.sp_id = req.body.sp_id;
-  data.code =  req.body.code;
-  data.name = req.body.name;
-  data.delivery_day = new Date(req.body.delivery_day);
-  data.address = req.body.address;
-  data.image = req.file.filename;
-  data.website =  req.body.website;
-  data.phone = req.body.phone;
-  data.fax = req.body.fax;
-  data.sale_person_name = req.body.sale_person_name;
-  data.sale_person_mobile = req.body.sale_person_mobile;
-  data.sale_person_email = req.body.sale_person_email;
-  data.status = req.body.status;
-  data.date = new Date();
-
-  data_check = true;
-  if(data.delivery_day == "" || data.delivery_day == "Invalid Date") {
-    res.send("Invalid Date");
-    data_check = false;
-  }
-  for(item in data) {
-    console.log(item + " is "+data[item]);
-    if(data[item] === undefined || data[item] === "") {
-      res.send(item + " is undefined");
-      data_check = false;
-      break;
+var updatelogo = upload.single('logo');
+router.post('/',function(req,res){
+  updatelogo(req,res, function(err){
+    data = {};
+    data.sp_id = req.body.sp_id;
+    data.code =  req.body.code;
+    data.name = req.body.name;
+    data.delivery_day = req.body.delivery_day;
+    data.address = req.body.address;
+    try {
+      data.image = req.file.filename;
+      havenewlogo = true;
     }
-  }
-  if(!data_check){
-    fs.unlink('public/uploads/'+req.file.filename, function (err) {
-      if (err) throw err;
-      console.log('successfully deleted /tmp/hello');
+    catch(err) {
+        data.image = 'default.png';
+    }
+
+    data.website =  req.body.website;
+    data.phone = req.body.phone;
+    data.fax = req.body.fax;
+    data.sale_person_name = req.body.sale_person_name;
+    data.sale_person_mobile = req.body.sale_person_mobile;
+    data.sale_person_email = req.body.sale_person_email;
+    data.status = req.body.status;
+    data.date = new Date();
+
+    data_check = true;
+    if(data.delivery_day == "" || data.delivery_day == "Invalid Date") {
+      res.send("Invalid Date");
+      data_check = false;
+    }
+    for(item in data) {
+      console.log(item + " is "+data[item]);
+      if(data[item] === undefined || data[item] === "") {
+        res.send(item + " is undefined");
+        data_check = false;
+        break;
+      }
+    }
+    if(!data_check){
+      fs.unlink('public/uploads/'+req.file.filename, function (err) {
+        if (err) throw err;
+        console.log('successfully deleted /tmp/hello');
+      });
+
+      return false;
+
+    }
+    supplierDB.create(data,function(err,data){
+      if(err){
+        res.send(err);
+      }else{
+        res.send({status:'successfully',data:data});
+      }
     });
 
-    return false;
-
-  }
-  supplierDB.create(data,function(err,data){
-    if(err){
-      res.send(err);
-    }else{
-      res.send({status:'successfully',data:data});
-    }
   });
+
 
 });
 
@@ -115,14 +126,14 @@ router.delete('/:id',function(req,res){
     res.send("deleted");
   })
 });
-var updatelogo = upload.single('logo');
+
 router.put('/:id',function(req,res){
   updatelogo(req,res, function(err){
     data = {};
     data.sp_id = req.body.sp_id;
     data.code =  req.body.code;
     data.name = req.body.name;
-    data.delivery_day = new Date(req.body.delivery_day);
+    data.delivery_day = req.body.delivery_day;
     data.address = req.body.address;
     havenewlogo = false;
     try {
