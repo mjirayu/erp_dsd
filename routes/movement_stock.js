@@ -19,16 +19,22 @@ router.get('/movement/search/date', function(req, res, next) {
   var date_to = new Date(params.date_to);
   var pd_id = params.pd_id;
 
-  movementModel.find({
-      pd_id: pd_id,
-      movement_type: { $regex: movement_type },
-      update_date : {
-        $gte: date_from,
-        $lte: date_to
-      }
-    },function(err, data) {
-      res.send(data);
-    });
+  if(date_to > date_from){
+    movementModel.find({
+        pd_id: pd_id,
+        movement_type: { $regex: movement_type },
+        update_date : {
+          $gte: date_from,
+          $lte: date_to
+        }
+      },function(err, data) {
+        res.send(data);
+      });
+  }
+  else{
+    res.send('date_to must be rather than date_from');
+  }
+
 });
 
 
