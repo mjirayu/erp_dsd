@@ -47,7 +47,7 @@ router.post('/',function(req,res){
     catch(err) {
         data.image = 'default.png';
     }
-    
+
     data.website =  req.body.website;
     data.phone = req.body.phone;
     data.fax = req.body.fax;
@@ -133,7 +133,7 @@ router.put('/:id',function(req,res){
     data.sp_id = req.body.sp_id;
     data.code =  req.body.code;
     data.name = req.body.name;
-    data.delivery_day = new Date(req.body.delivery_day);
+    data.delivery_day = req.body.delivery_day;
     data.address = req.body.address;
     havenewlogo = false;
     try {
