@@ -12,7 +12,7 @@ var priceSchema = new Schema({
     type: Schema.ObjectId,
     ref: 'M_PRODUCT'
   },
-  pd_price: String,
+  pd_price: Number,
   minimun_order: Number,
   effective_date: Date,
   update_date: Date,
