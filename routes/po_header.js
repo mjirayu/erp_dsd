@@ -14,38 +14,17 @@ router.get('/', function(req, res, next) {
     .find({})
     .populate('sp_id')
     .exec(function(err, collection) {
-      res.json(collection);
+      if (collection.length == 0) {
+        res.send([
+          {
+            ErrorCode: -1,
+            ErrorMessage: 'Data not found',
+          },
+        ]);
+      } else {
+        res.json(collection);
+      }
     });
-});
-
-router.post('/', function(req, res, next) {
-  var today = dateFunction.getDate();
-
-  if (req.body.po_id) {
-    if (validate.checkFormat(req.body.po_id, 'PO')) {
-      res.send('poNo is not in correct format.');
-    };
-  };
-
-  dataPOHeader.create({
-    po_id: req.body.po_id,
-    sp_id: req.body.sp_id,
-    order_date: req.body.order_date,
-    expected_date: req.body.expected_date,
-    untaxed_total: req.body.untaxed_total,
-    total: req.body.total,
-    po_status: req.body.po_status,
-    invoice_no: req.body.invoice_no,
-    update_date: today,
-    update_by: 'User',
-  }, function(err) {
-    if (err) {
-      var message = validate.getMessage(err);
-      res.send(message);
-    } else {
-      res.send('success');
-    }
-  });
 });
 
 router.get('/search', function(req, res, next) {
@@ -72,7 +51,16 @@ router.get('/search', function(req, res, next) {
         return item;
       });
 
-      res.send(data);
+      if (data.length == 0) {
+        res.send([
+          {
+            ErrorCode: -1,
+            ErrorMessage: 'Data not found',
+          },
+        ]);
+      } else {
+        res.send(data);
+      }
     });
 });
 
@@ -83,6 +71,7 @@ router.put('/close/:id', function(req, res, next) {
       {
         $set: {
           'invoice_no': req.body.invoice_no,
+          'po_status': 'Closed',
         },
       },
       function(err, data) {
