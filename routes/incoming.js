@@ -1,12 +1,13 @@
 var express = require('express');
 var router = express.Router();
+
 var po_headerModel = require('./../models/po_header');
 var po_transactionModel = require('./../models/po_transaction');
 var supplierModel = require('./../models/m_supplier');
 
 var validate = require('./../helpers/validate');
 
-router.get('/incomming', function(req, res, next) {
+router.get('/incoming', function(req, res, next) {
   po_headerModel
     .find({})
     .populate('sp_id')
@@ -15,7 +16,7 @@ router.get('/incomming', function(req, res, next) {
     });
 });
 
-router.get('/incomming/search', function(req, res, next) {
+router.get('/incoming/search', function(req, res, next) {
   var params = req.query;
   var po_id = new RegExp(params.po_id, 'i');
   var po_status = new RegExp(params.po_status, 'i');
@@ -43,7 +44,7 @@ router.get('/incomming/search', function(req, res, next) {
     });
 });
 
-router.get('/incomming/detail/:id', function(req, res, next) {
+router.get('/incoming/detail/:id', function(req, res, next) {
   po_transactionModel.find({})
     .populate('po_id',null,{ _id: req.params.id
             })
@@ -53,7 +54,7 @@ router.get('/incomming/detail/:id', function(req, res, next) {
     });
 });
 
-router.get('/incomming/:id', function(req, res, next) {
+router.get('/incoming/:id', function(req, res, next) {
   po_headerModel
     .find({_id : req.params.id})
     .populate('sp_id')
