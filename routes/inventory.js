@@ -18,7 +18,7 @@ router.post('/inventory',function(req,res){
     inventoryModel.create({
       pd_id: item.pd_id,
       quantity: item.quantity,
-      zone_id: null,
+      zone_id: 'null',
       update_date: today,
       update_by: 'admin',
     }, function(err) {
