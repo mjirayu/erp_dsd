@@ -83,7 +83,7 @@ router.post('/', upload.single('image'), function(req, res, next) {
   }
 
   if (req.file === undefined) {
-    data.image = '';
+    data.image = 'product_prototype.jpg';
   } else {
     data.image = req.file.filename;
   }
