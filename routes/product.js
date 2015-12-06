@@ -98,6 +98,50 @@ router.post('/', upload.single('image'), function(req, res, next) {
 
 });
 
+router.put('/:id', upload.single('image'), function(req, res, next) {
+  var today = dateFunction.getDate();
+  var message = [];
+
+  if (req.body.pd_id == '' || req.body.pd_name == '' || req.body.pd_type == '' || req.body.pd_status == '') {
+    message.push({
+      ErrorCode: 1,
+      ErrorMessage: 'productItem is null.',
+    });
+  }
+
+  if (validate.checkFormat(req.body.pd_id, 'PD') == false) {
+    message.push({
+      ErrorCode: 2,
+      ErrorMessage: 'productCode is not in correct format.',
+    });
+  }
+
+  if (req.file.filename) {
+    image = req.file.filename;
+  }
+
+  if (message.length == 0) {
+    productDB.findByIdAndUpdate(
+      req.params.id,
+      {
+        $set: {
+          'pd_id': req.body.pd_id,
+          'pd_name':  req.body.pd_name,
+          'pd_type': req.body.pd_type,
+          'pd_status': req.body.pd_status,
+          'image': image,
+          'update_date': today,
+        },
+      },
+      function(err, data) {
+        res.send('Success');
+      }
+    );
+  } else {
+    res.send(message);
+  }
+});
+
 router.get('/search', function(req, res, next) {
   var message = [];
   var params = req.query;
