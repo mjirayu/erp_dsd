@@ -118,6 +118,8 @@ router.put('/:id', upload.single('image'), function(req, res, next) {
 
   if (req.file.filename) {
     image = req.file.filename;
+  } else {
+    image = req.body.pd_img;
   }
 
   if (message.length == 0) {
