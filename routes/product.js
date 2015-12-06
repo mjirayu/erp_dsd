@@ -112,7 +112,7 @@ router.get('/search', function(req, res, next) {
       pd_name: { $regex: pd_name },
     })
     .exec(function(err, collection) {
-      if (collection.length == 0) {
+      if (message.length == 0) {
         res.send(collection);
       } else {
         message.push({
