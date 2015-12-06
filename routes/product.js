@@ -98,7 +98,7 @@ router.post('/', upload.single('image'), function(req, res, next) {
 
 });
 
-router.put('/:id', upload.single('image'), function(req, res, next) {
+router.put('/:id', upload.single('pd_img'), function(req, res, next) {
   var today = dateFunction.getDate();
   var message = [];
 
@@ -117,7 +117,7 @@ router.put('/:id', upload.single('image'), function(req, res, next) {
   }
 
   if (req.file === undefined) {
-    image = req.body.pd_img;
+    image = req.body.image;
   } else {
     image = req.file.filename;
   }
