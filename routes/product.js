@@ -116,10 +116,10 @@ router.put('/:id', upload.single('image'), function(req, res, next) {
     });
   }
 
-  if (req.file.filename) {
-    image = req.file.filename;
-  } else {
+  if (req.file === undefined) {
     image = req.body.pd_img;
+  } else {
+    image = req.file.filename;
   }
 
   if (message.length == 0) {
