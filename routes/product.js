@@ -68,7 +68,7 @@ router.post('/', upload.single('image'), function(req, res, next) {
   data.update_date = today;
   data.update_by = 'dev';
 
-  if (data.pd_id == '' || data.pd_name == '' || data.pd_type == '' || pd_status == '') {
+  if (data.pd_id == '' || data.pd_name == '' || data.pd_type == '' || data.pd_status == '') {
     message.push({
       ErrorCode: 1,
       ErrorMessage: 'productItem is null.',
@@ -112,14 +112,14 @@ router.get('/search', function(req, res, next) {
       pd_name: { $regex: pd_name },
     })
     .exec(function(err, collection) {
-      if (message.length == 0) {
-        res.send(collection);
-      } else {
+      if (collection.length == 0) {
         message.push({
           ErrorCode: -1,
           ErrorMessage: 'Data not found',
         });
         res.send(message);
+      } else {
+        res.send(collection);
       }
     });
 });
