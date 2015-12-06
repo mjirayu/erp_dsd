@@ -65,7 +65,16 @@ router.get('/search', function(req, res, next) {
 });
 
 router.put('/close/:id', function(req, res, next) {
-  if (req.body.invoice_no) {
+  var message = [];
+
+  if (!req.body.invoice_no) {
+    message.push({
+      ErrorCode: 1,
+      ErrorMessage: 'invoiceNo is null.',
+    });
+  }
+
+  if (message.length == 0 ) {
     dataPOHeader.findByIdAndUpdate(
       req.params.id,
       {
@@ -75,17 +84,13 @@ router.put('/close/:id', function(req, res, next) {
         },
       },
       function(err, data) {
-        if (err) {
-          message = validate.getMessage(err);
-          res.send(message);
-        } else {
-          res.send('Success');
-        }
+        res.send('Success');
       }
     );
   } else {
-    res.send('invoice_no is null');
+    res.send(message);
   }
+
 });
 
 router.get('/:id', function(req, res, next) {
