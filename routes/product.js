@@ -38,20 +38,49 @@ var storage = multer.diskStorage({
 var upload = multer({ storage: storage });
 
 router.get('/', function(req, res, next) {
+  var message = [];
   productDB.find({}, function(err, collection) {
-    res.json(collection);
+    if (collection.length == 0) {
+      message.push({
+        ErrorCode: -1,
+        ErrorMessage: 'Data not found',
+      });
+    }
+
+    if (message.length == 0) {
+      res.json(collection);
+    } else {
+      res.send(message);
+    }
+
   });
 });
 
 router.post('/', upload.single('image'), function(req, res, next) {
   var today = dateFunction.getDate();
+  var message = [];
+
   data = {};
   data.pd_id = req.body.pd_id;
   data.pd_name =  req.body.pd_name;
   data.pd_type = req.body.pd_type;
   data.pd_status = req.body.pd_status;
   data.update_date = today;
-  data.update_by = 'User';
+  data.update_by = 'dev';
+
+  if (data.pd_id == '' || data.pd_name == '' || data.pd_type == '' || pd_status == '') {
+    message.push({
+      ErrorCode: 1,
+      ErrorMessage: 'productItem is null.',
+    });
+  }
+
+  if (validate.checkFormat(data.pd_id, 'PD') == false) {
+    message.push({
+      ErrorCode: 2,
+      ErrorMessage: 'productCode is not in correct format.',
+    });
+  }
 
   if (req.file === undefined) {
     data.image = '';
@@ -59,18 +88,18 @@ router.post('/', upload.single('image'), function(req, res, next) {
     data.image = req.file.filename;
   }
 
-  productDB.create(data, function(err, data) {
-    if (err) {
-      var message = validate.getMessage(err);
-      res.send(message);
-    }
-
-    res.send(data);
-  });
+  if (message.length == 0) {
+    productDB.create(data, function(err, data) {
+      res.send(data);
+    });
+  } else {
+    res.send(message);
+  }
 
 });
 
 router.get('/search', function(req, res, next) {
+  var message = [];
   var params = req.query;
   var pd_id = new RegExp(params.pd_id, 'i');
   var pd_status = new RegExp(params.pd_status, 'i');
@@ -83,14 +112,33 @@ router.get('/search', function(req, res, next) {
       pd_name: { $regex: pd_name },
     })
     .exec(function(err, collection) {
-      if (err) res.send(err);
-      res.send(collection);
+      if (collection.length == 0) {
+        res.send(collection);
+      } else {
+        message.push({
+          ErrorCode: -1,
+          ErrorMessage: 'Data not found',
+        });
+        res.send(message);
+      }
     });
 });
 
 router.get('/:id', function(req, res, next) {
+  var message = [];
   productDB.findById(req.params.id, function(err, data) {
-    res.json(data);
+    if (data === undefined) {
+      message.push({
+        ErrorCode: -1,
+        ErrorMessage: 'Data not found',
+      });
+    }
+
+    if (message.length != 0) {
+      res.send(message);
+    } else {
+      res.json(data);
+    }
   });
 });
 
