@@ -65,6 +65,10 @@ router.post('/', function(req, res, next) {
             price: item.price,
             update_date: today,
             update_by: 'User',
+          }, function(err) {
+            if (!err) {
+              res.send('Created');
+            }
           });
         });
       });
